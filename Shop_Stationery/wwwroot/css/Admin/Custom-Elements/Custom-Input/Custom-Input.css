@@ -1,0 +1,32 @@
+﻿.Custom-Input-1 {
+    border: 1px solid #e0e0e0;
+    padding: 0px 20px;
+    border-radius: 100px;
+    outline: none;
+    height: 43px;
+    display: block;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+}
+    .Custom-Input-1:focus {
+        border: 1px solid #4b4b4b;
+    }
+
+.Custom-Input-2 {
+    border: 1px solid #e0e0e0;
+    padding: 0px 20px;
+    border-radius: 5px;
+    outline: none;
+    height: 43px;
+    display: block;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+}
+
+    .Custom-Input-2:focus {
+        border: 1px solid #4b4b4b;
+    }

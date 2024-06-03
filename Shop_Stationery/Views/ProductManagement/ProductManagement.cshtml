@@ -1,0 +1,311 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@model Shop_Stationery.Models.ViewModelAdmin.ViewModelProduct.ViewModelProduct
+@section Style{
+    <link href="~/css/Admin/ProductManagement/ProductManagement.css" rel="stylesheet" />
+}
+@using Entity;
+@{
+    var backModel = ViewBag.model;
+    var Categories = ViewBag.Categories;
+    var Shops = ViewBag.Shops;
+    bool IsEditing;
+    @if (ViewBag.Action == "/ProductManagement/EditProduct")
+    {
+        IsEditing = true;
+
+    }
+    else
+    {
+        IsEditing = false;
+
+    }
+}
+<div class="product-manage">
+    <h1 class="title">
+        مدیریت کالاها
+    </h1>
+    <div class="body-product-manage">
+        <div class="add-Product">
+            @if (ViewBag.ResultEdit == true)
+            {
+                <div class="alert alert-info">
+                    <h5>کالا ویرایش شد</h5>
+                </div>
+            }
+            @if (ViewBag.ResultDelete == true)
+            {
+                <div class="alert alert-warning">
+                    <h5>کالا حذف شد</h5>
+                </div>
+            }
+            @if (ViewBag.Result == true)
+            {
+                <div class="alert alert-success">
+                    <h5>کالا اضافه شد</h5>
+                </div>
+            }
+
+            @*Start Form Product*@
+            <form class="form-add-Product row" action="@ViewBag.Action" method="post" enctype="multipart/form-data">
+                @if (IsEditing)
+                {
+                    <div class="close-editing" style="">
+                        <button class="btn btn-primary" type="reset" onclick="CloseEditing()">خروج از حالت ویرایش</button>
+                        <br />
+                        <br />
+                    </div>
+                }
+                else
+                {
+                    <div class="close-editing" style="display:none">
+                        <button class="btn btn-primary" type="reset" onclick="CloseEditing()">خروج از حالت ویرایش</button>
+                        <br />
+                        <br />
+                    </div>
+                }
+                <input id="input-Product-id" type="number" name="id" value="" hidden />
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Name"></label>
+                    <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    <input id="input-Product-name" type="text" class="Custom-Input-2 col-12" asp-for="Product.Name" name="Name" value="@backModel.Name" />
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Slack"></label>
+                    <span asp-validation-for="Product.Slack" class="text-danger"></span>
+                    <input id="input-Product-slack" type="text" class="Custom-Input-2 col-12" asp-for="Product.Slack" name="Slack" value="@backModel.Slack" />
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Code">کد کالا*(@Model.Products.Last().Code)</label>
+                    <span asp-validation-for="Product.Code" class="text-danger"></span>
+                    <input id="input-Product-code" type="text" class="Custom-Input-2 col-12" asp-for="Product.Code" name="Code" value="@backModel.Code" />
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Price"></label>
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    <input id="input-Product-price" type="number" class="Custom-Input-2 col-12" asp-for="Product.Price" name="Price" value="@backModel.Price" />
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Discount"></label>
+                    <span asp-validation-for="Product.Discount" class="text-danger"></span>
+                    <input id="input-Product-discount" type="number" class="Custom-Input-2 col-12" asp-for="Product.Discount" name="Discount" value="@backModel.Discount" />
+                </div>
+                @*//////////*@
+                @*<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label asp-for="Product.Number"></label>
+                        <span asp-validation-for="Product.Number" class="text-danger"></span>
+                        <input id="input-Product-number" type="number" class="Custom-Input-2 col-12" asp-for="Product.Number" name="Number" value="@backModel.Number" />
+                    </div>*@
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Categoryid"></label>
+                    <span asp-validation-for="Product.Categoryid" class="text-danger"></span>
+                    <select id="input-Product-categoryid" class="Custom-Input-2 col-12" asp-for="Product.Categoryid" name="Categoryid" value="@backModel.Categoryid">
+                        <option value="0">خالی</option>
+                        @foreach (Category item in Categories)
+                        {
+                            <option value="@item.id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                @*//////////*@
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Discription"></label>
+                    <span asp-validation-for="Product.Discription" class="text-danger"></span>
+                    <textarea hidden id="input-Product-discription" type="text" class="Custom-Input-2 col-12" asp-for="Product.Discription" name="Discription" value="@backModel.Discription">@backModel.Discription</textarea>
+                    <div class="ck ck-reset ck-editor ck-rounded-corners" role="application" dir="rtl" lang="fa" aria-labelledby="ck-editor__label_e5c5a96758fcbbf3d9a7f2685fdb95446">
+                        <label class="ck ck-label ck-voice-label" id="ck-editor__label_e5c5a96758fcbbf3d9a7f2685fdb95446">ویرایشگر متن غنی</label><div class="ck ck-editor__top ck-reset_all" role="presentation"><div class="ck ck-sticky-panel"><div class="ck ck-sticky-panel__placeholder" style="display: none;"></div><div class="ck ck-sticky-panel__content"><div class="ck ck-toolbar ck-toolbar_grouping" role="toolbar" aria-label="نوارابزار ویرایشگر"><div class="ck ck-toolbar__items"><div class="ck ck-dropdown ck-heading-dropdown"><button class="ck ck-button ck-off ck-button_with-text ck-dropdown__button" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e5363d1f6b41866725ec3c72bf5c74da3" data-cke-tooltip-text="عنوان" data-cke-tooltip-position="s" aria-haspopup="true" aria-expanded="false"><span class="ck ck-button__label" id="ck-editor__aria-label_e5363d1f6b41866725ec3c72bf5c74da3">عنوان 1</span><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-dropdown__arrow" viewBox="0 0 10 10"><path d="M.941 4.523a.75.75 0 1 1 1.06-1.06l3.006 3.005 3.005-3.005a.75.75 0 1 1 1.06 1.06l-3.549 3.55a.75.75 0 0 1-1.168-.136L.941 4.523z"></path></svg></button><div class="ck ck-reset ck-dropdown__panel ck-dropdown__panel_se"><ul class="ck ck-reset ck-list"><li class="ck ck-list__item"><button class="ck ck-button ck-heading_paragraph ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e8196cefba37d692a62a8cce063231e7b" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_e8196cefba37d692a62a8cce063231e7b">پاراگراف</span></button></li><li class="ck ck-list__item"><button class="ck ck-button ck-heading_heading1 ck-on ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e05963c2b9c6610cc7517915d5b8609bc" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_e05963c2b9c6610cc7517915d5b8609bc">عنوان 1</span></button></li><li class="ck ck-list__item"><button class="ck ck-button ck-heading_heading2 ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_efade628e21de2ad5648f7de9e4a86f4e" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_efade628e21de2ad5648f7de9e4a86f4e">عنوان 2</span></button></li><li class="ck ck-list__item"><button class="ck ck-button ck-heading_heading3 ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_ea51048ebb0b1dee3e04db2f8e953fbef" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_ea51048ebb0b1dee3e04db2f8e953fbef">عنوان 3</span></button></li></ul></div></div><button class="ck ck-button ck-disabled ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e156b4ba458fe5723575ef1ac8781164c" aria-disabled="true" data-cke-tooltip-text="بازگردانی (Ctrl+Z)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="m14.958 9.367-2.189 1.837a.75.75 0 0 0 .965 1.149l3.788-3.18a.747.747 0 0 0 .21-.284.75.75 0 0 0-.17-.945L13.77 4.762a.75.75 0 1 0-.964 1.15l2.331 1.955H6.22A.75.75 0 0 0 6 7.9a4 4 0 1 0 1.477 7.718l-.344-1.489A2.5 2.5 0 1 1 6.039 9.4l-.008-.032h8.927z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_e156b4ba458fe5723575ef1ac8781164c">بازگردانی</span></button><button class="ck ck-button ck-disabled ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e52c9be2a77ecd9eb1b6fe94c306611bf" aria-disabled="true" data-cke-tooltip-text="باز انجام (Ctrl+Y)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="m5.042 9.367 2.189 1.837a.75.75 0 0 1-.965 1.149l-3.788-3.18a.747.747 0 0 1-.21-.284.75.75 0 0 1 .17-.945L6.23 4.762a.75.75 0 1 1 .964 1.15L4.863 7.866h8.917A.75.75 0 0 1 14 7.9a4 4 0 1 1-1.477 7.718l.344-1.489a2.5 2.5 0 1 0 1.094-4.73l.008-.032H5.042z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_e52c9be2a77ecd9eb1b6fe94c306611bf">باز انجام</span></button><button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e886b4040e5b759290f4feaee6f794e70" aria-pressed="false" data-cke-tooltip-text="درشت (Ctrl+B)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="M10.187 17H5.773c-.637 0-1.092-.138-1.364-.415-.273-.277-.409-.718-.409-1.323V4.738c0-.617.14-1.062.419-1.332.279-.27.73-.406 1.354-.406h4.68c.69 0 1.288.041 1.793.124.506.083.96.242 1.36.478.341.197.644.447.906.75a3.262 3.262 0 0 1 .808 2.162c0 1.401-.722 2.426-2.167 3.075C15.05 10.175 16 11.315 16 13.01a3.756 3.756 0 0 1-2.296 3.504 6.1 6.1 0 0 1-1.517.377c-.571.073-1.238.11-2 .11zm-.217-6.217H7v4.087h3.069c1.977 0 2.965-.69 2.965-2.072 0-.707-.256-1.22-.768-1.537-.512-.319-1.277-.478-2.296-.478zM7 5.13v3.619h2.606c.729 0 1.292-.067 1.69-.2a1.6 1.6 0 0 0 .91-.765c.165-.267.247-.566.247-.897 0-.707-.26-1.176-.778-1.409-.519-.232-1.31-.348-2.375-.348H7z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_e886b4040e5b759290f4feaee6f794e70">درشت</span></button><button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_eb38da7282cdaa507ce1f58c816ebcc44" aria-pressed="false" data-cke-tooltip-text="کج (Ctrl+I)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="m9.586 14.633.021.004c-.036.335.095.655.393.962.082.083.173.15.274.201h1.474a.6.6 0 1 1 0 1.2H5.304a.6.6 0 0 1 0-1.2h1.15c.474-.07.809-.182 1.005-.334.157-.122.291-.32.404-.597l2.416-9.55a1.053 1.053 0 0 0-.281-.823 1.12 1.12 0 0 0-.442-.296H8.15a.6.6 0 0 1 0-1.2h6.443a.6.6 0 1 1 0 1.2h-1.195c-.376.056-.65.155-.823.296-.215.175-.423.439-.623.79l-2.366 9.347z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_eb38da7282cdaa507ce1f58c816ebcc44">کج</span></button></div></div></div></div></div><div class="ck ck-editor__main" role="presentation">
+                            <div id="ck-content" style="height:300px" onclick="text()" onkeydown="text()" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" lang="fa" dir="rtl" role="textbox" aria-label="Editor editing area: main" contenteditable="true">
+                                @backModel.Discription
+                                <br />
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*//////////*@
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Specifications"></label>
+                    <span asp-validation-for="Product.Specifications" class="text-danger"></span>
+                    <textarea id="input-Product-Specifications" type="text" class="Custom-Input-2 col-12" asp-for="Product.Specifications" name="Specifications" value="@backModel.Specifications">@backModel.Discription</textarea>
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Image" class="label-file1"></label>
+                    @if (IsEditing)
+                    {
+                        <label class="text-danger label-file2">اگر نمی خواهید عکس را ویرایش کنید آن را خالی بگذارید</label>
+                    }
+                    else
+                    {
+                        <label class="text-danger label-file2" style="display:none">اگر نمی خواهید عکس را ویرایش کنید آن را خالی بگذارید</label>
+
+                    }
+                    <span asp-validation-for="Product.Image" class="text-danger"></span>
+                    <input type="file" class="Custom-Input-2 col-12" asp-for="Product.Image" name="Image" value="" />
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Product.Images" class="label-file1"></label>
+                    @if (IsEditing)
+                    {
+
+
+                        <label class="text-danger label-file2">اگر نمی خواهید عکس را ویرایش کنید آن را خالی بگذارید</label>
+                    }
+                    else
+                    {
+                        <label class="text-danger label-file2" style="display:none">اگر نمی خواهید عکس را ویرایش کنید آن را خالی بگذارید</label>
+
+                    }
+                    <span asp-validation-for="Product.Images" class="text-danger"></span>
+                    <input type="file" class="Custom-Input-2 col-12" asp-for="Product.Images" name="Images" value="" multiple />
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <br />
+                    <br />
+                    <h5>
+                        انتخاب ویژگی
+                        <span class="bi bi-caret-down open-box-select-attribute"></span>
+                    </h5>
+                    <div class="box-select-attribute">
+                        <div class="box-inputs-attribute col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" hidden class="Custom-Input-2 col-lg-3 attribute-product-id-0" asp-for="Product.Attributes[0].id" name="Attributes[0].id" value="" placeholder="سایز" />
+                            <input type="text" class="Custom-Input-2 col-lg-3 attribute-product-size-0" asp-for="Product.Attributes[0].Size" name="Attributes[0].Size" value="0" placeholder="سایز" />
+                            <input type="text" class="Custom-Input-2 col-lg-3 attribute-product-color-0" asp-for="Product.Attributes[0].Color" name="Attributes[0].Color" value="0" placeholder="رنگ" />
+                            <input type="number" class="Custom-Input-2 col-lg-3 attribute-product-number-0" asp-for="Product.Attributes[0].Number" name="Attributes[0].Number" value="" placeholder="تعداد" />
+                            <br class="hidden-lg hidden-md" />
+                            <div class="col-lg-3">
+                                <label>کد رنگ</label>
+                                <input type="color" class="attribute-product-colorcode-0" value="" asp-for="Product.Attributes[0].ColorCode" name="Attributes[0].ColorCode" />
+                            </div>
+                            @*@for (int i = 0; i < 10; i++)
+                                {
+                                    i++;
+                                    <div class="box-inputs-attribute col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <label>@i</label>
+                                        <br />
+                                        @{i--;}
+                                        <input type="text" hidden class="Custom-Input-2 col-lg-3 attribute-product-id-@i" asp-for="Product.Attributes[i].id" name="Attributes[@i].id" value="" placeholder="سایز" />
+                                        <input type="text" class="Custom-Input-2 col-lg-3 attribute-product-size-@i" asp-for="Product.Attributes[i].Size" name="Attributes[@i].Size" value="" placeholder="سایز" />
+                                        <input type="text" class="Custom-Input-2 col-lg-3 attribute-product-color-@i" asp-for="Product.Attributes[i].Color" name="Attributes[@i].Color" value="" placeholder="رنگ" />
+                                        <input type="number" class="Custom-Input-2 col-lg-3 attribute-product-number-@i" asp-for="Product.Attributes[i].Number" name="Attributes[@i].Number" value="" placeholder="تعداد" />
+                                        <div class="col-lg-3">
+                                            <label>کد رنگ</label>
+                                            <input type="color" class="attribute-product-colorcode-@i" value="" asp-for="Product.Attributes[i].ColorCode" name="Attributes[@i].ColorCode" />
+                                        </div>
+
+                                    </div>
+                                }*@
+
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-btn-submit ">
+                    <button type="submit" class=" col-6 btn btn-success">ثبت کالا</button>
+                </div>
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <br />
+            </form>
+            @*End Form Product*@
+        </div>
+        <div class="product-manage-options">
+            <div class="search-product-manage">
+                @*Start Form Search*@
+                <form asp-action="SearchProduct" asp-controller="ProductManagement" method="post">
+                    <button type="submit" class="porduct-option btn btn-success d-inline"><i class="fa fa-search"></i></button>
+                    <input type="text" name="Name" value="" class="Custom-Input-1 d-inline" />
+                </form>
+                @*End Form Search*@
+            </div>
+        </div>
+        <br />
+        <div class="table-box-product-manage">
+            <table class="table table-hover table-product-manage">
+                <thead>
+                    <tr>
+                        <th>...</th>
+                        <th>نام کالا</th>
+                        <th>نامک کالا</th>
+                        <th>کد کالا</th>
+                        <th>قیمت</th>
+                        <th>تخفیف</th>
+                        <th>تعداد</th>
+                        <th>توضیحات</th>
+                        <th>مشخصات</th>
+                        <th>دسته بندی</th>
+                        <th>تصویر</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>
+                                    <form action="/ProductManagement/DeleteProduct" method="post" style="display:inline">
+                                        <input type="number" name="id" value="@item.id" hidden />
+                                        <button class="btn btn-outline-danger" type="submit"><i class="bi bi-trash3-fill"></i></button>
+                                    </form>
+                                    <button class="btn btn-outline-info" onclick="ReadProduct(@item.id)"><i class="bi bi-pencil-square"></i></button>
+                                </td>
+                                <td>@item.Name</td>
+                                <td>@item.Slack</td>
+                                <td class="text-primary">@item.Code</td>
+                                <td class="text-success">@item.Price</td>
+                                <td class="text-danger">@item.Discount</td>
+                                <td>@item.Number</td>
+                                <td>@item.Discription</td>
+                                <td>@item.Specifications</td>
+                                @if (item.Categoryid == 0)
+                                {
+                                    <td>خالی</td>
+                                }
+                                else
+                                {
+                                    int a = 0;
+                                    foreach (var item1 in Categories)
+                                    {
+                                        if (item.Categoryid == item1.id)
+                                        {
+                                            a++;
+                                            <td>@item1.Name</td>
+                                        }
+                                    }
+                                    if (a == 0)
+                                    {
+                                        <td>خالی</td>
+                                    }
+                                }
+                                <td><img src="@item.ImagePath" width="50px" height="50px" alt="@item.Name" /></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/Admin/ProductManagement/ProductManagement.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+
+    <script>
+        const createClock = setInterval(text, 100);
+        function text() {
+            document.getElementById('input-Product-discription').value = document.getElementById('ck-content').innerHTML.toString();
+        }
+    </script>
+}

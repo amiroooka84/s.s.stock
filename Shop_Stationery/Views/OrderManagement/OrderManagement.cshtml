@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@section Style{
+<link href="~/css/Admin/ProductManagement/ProductManagement.css" rel="stylesheet" />
+}
+@using Entity;
+@{
+    List<Entity.Order.Order> orders = new List<Entity.Order.Order>();
+    orders = ViewBag.orders;
+}
+<div class="product-manage">
+    <h1 class="title">
+        مدیریت کالاها
+    </h1>
+    <form asp-action="SearchOrder" asp-controller="OrderManagement" method="get" class="row">
+        <div class="col-6">
+            <input type="text" name="OrderCode" value="" class="custom-control-input form-control " placeholder="شناسه سفارش" />
+        </div>
+        <br />
+        <div class="col-6">
+            <input type="text" name="Number" value="" class="custom-control-input form-control " placeholder="شماره مشتری" />
+        </div>
+        <br />
+        <br />
+        <div class="col-12">
+            <button type="submit" class="btn btn-success col-12 form-control"><i class="bi bi-search"></i></button>
+        </div>
+    </form>
+    <div class="body-product-manage">
+        <div class="table-box-product-manage">
+            <table class="table table-hover table-product-manage">
+                <thead>
+                    <tr>
+                        <th>...</th>
+                        <th>شماره سفارش</th>
+                        <th>شماره</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>آدرس</th>
+                        <th>مبلغ</th>
+                        <th>تخفیف</th>
+                        <th>وضعیت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in orders)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="/ReadOrder/@item.id" class="btn btn-outline-success" type="button" onclick="">جزئیات</a>
+                                </td>
+                                <td>@item.Code</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>@item.FullName</td>
+                                <td>@item.Address</td>
+                                <td>@item.Price</td>
+                                <td>@item.Discount</td>
+                                <td>@item.State</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/Admin/ProductManagement/ProductManagement.js"></script>
+}

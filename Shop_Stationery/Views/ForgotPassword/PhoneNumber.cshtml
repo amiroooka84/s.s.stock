@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "فراموشی رمز عبور";
+    Layout = "~/Views/Shared/_Layout_LoginAndSignup.cshtml";
+}
+@section Style{
+
+}
+@model Shop_Stationery.Models.ViewModelUser.ViewModelExistPhoneNumber.ViewModelExistPhoneNumber
+
+<h3 class="title-login"><b>بازیابی کلمه عبور</b></h3>
+<form asp-action="ForgotPassword" method="get">
+    <label class="label-top-input">لطفا شماره موبایل خود را وارد </label>
+    <input asp-for="PhoneNumber" type="text" name="PhoneNumber" value="@ViewData["PhoneNumber"]" maxlength="11" min="11" class="Custom-Input-1 " placeholder="شماره موبایل" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <br />
+    <button type="submit" class="Custom-Button-2">
+        بازیابی
+    </button>
+</form>
+<div class="forgot">
+    <a href="/PhoneNumber" class="Custom-Tag-A-1">ورود و ثبت نام</a>
+</div>

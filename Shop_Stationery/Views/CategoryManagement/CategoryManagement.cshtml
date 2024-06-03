@@ -1,0 +1,170 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@model Shop_Stationery.Models.ViewModelAdmin.ViewModelCategory.ViewModelCategory
+@section Style{
+    <link href="~/css/Admin/CategoryManagement/CategoryManagement.css" rel="stylesheet" />
+}
+@{
+    var backModel = ViewBag.model;
+    var Categories = ViewBag.Categories;
+}
+<div class="category-manage">
+    <h1 class="title">
+       مدیریت دسته ها
+    </h1>
+    <div class="body-category-manage">
+        <div class="add-category">
+            @if (ViewBag.ResultEdit == "true")
+            {
+                <div class="alert alert-info">
+                    <h5>دسته ویرایش شد</h5>
+                </div>
+            }
+            @if (ViewBag.ResultDelete == "True")
+            {
+                <div class="alert alert-warning">
+                    <h5>دسته حذف شد</h5>
+                </div>
+            }
+            @if (ViewBag.Result == "true")
+            {
+                <div class="alert alert-success">
+                    <h5>دسته اضافه شد</h5>
+                </div>
+            }
+            @if (ViewBag.Action == "/CategortManagement/EditCategort")
+            {
+                <div class="close-editing" style="">
+                    <button class="btn btn-primary" onclick="CloseEditing()">خروج از حالت ویرایش</button>
+                    <br />
+                    <br />
+                </div>
+            }
+            else
+            {
+                <div class="close-editing" style="display:none">
+                    <button class="btn btn-primary" onclick="CloseEditing()">خروج از حالت ویرایش</button>
+                    <br />
+                    <br />
+                </div>
+            }
+            @*Start Form Category*@
+            <form class="form-add-category row" action="@ViewBag.Action" method="post" enctype="multipart/form-data">
+                <input id="input-category-id" type="number" name="id" value="" hidden />
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Category.Name"></label>
+                    <span asp-validation-for="Category.Name" class="text-danger"></span>
+                    <input id="Input-Category-Name" type="text" class="Custom-Input-2 col-12" asp-for="Category.Name" name="Name" value="@backModel.Name" />
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Category.Category"></label>
+                    <span asp-validation-for="Category.Category" class="text-danger"></span>
+                    <select id="Input-Category-Category" class="Custom-Input-2 col-12" asp-for="Category.Category" name="Category" value="@backModel.Category">
+                        <option value="0">خالی</option>
+                        @foreach (var item in Categories)
+                        {
+                            <option value="@item.id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                @*//////////*@
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <label asp-for="Category.Image" class="label-file1"></label>
+                    <label class="text-danger label-file2" style="display:none"> اگر نمی خواهید عکس را ویرایش کنید آن را خالی بگذارید</label>
+                    <span asp-validation-for="Category.Image" class="text-danger"></span>
+                    <input id="Input-Category-img" type="file" class="Custom-Input-2 col-12" asp-for="Category.Image" name="Image" value="@backModel.Image" />
+                </div>
+                @*//////////*@
+                <br />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-btn-submit ">
+                    <button id="btn-Category" type="submit" class=" col-6 btn btn-success">ثبت دسته</button>
+                </div>
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <br />
+            </form>
+            @*End Form Category*@
+        </div>
+        <br />
+        <div class="container">
+            <form asp-action="DiscountForCategory" class="row" method="post">
+                <input type="text" class="discount-categoryId" name="CategoryId" value="" hidden/>
+                <input type="text" class="col-6 form-control discount-namecategory" name="" value="" disabled/>
+                <input type="number" max="99" class="col-6 form-control" name="Discount" value="" placeholder="میزان تخفیف"/>
+                <br />
+                <button class="btn btn-success">ثبت تخفیف</button>
+            </form>
+        </div>
+        <br />
+        <div class="category-manage-options">
+            <div class="search-category-manage">
+                @*Start Form Search*@
+                <form asp-action="SearchCategory" asp-controller="CategoryManagement" method="post">
+                    <button type="submit" class="porduct-option btn btn-success d-inline"><i class="fa fa-search"></i></button>
+                    <input type="text" name="Name" value="" class="Custom-Input-1 d-inline" />
+                </form>
+                @*End Form Search*@
+            </div>
+        </div>
+        <br />
+        <div class="table-box-category-manage">
+            <table class="table table-hover table-category-manage">
+                <thead>
+                    <tr>
+                        <th>...</th>
+                        <th>نام دسته</th>
+                        <th>دسته</th>
+                        <th>عکس</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.Categories)
+                        {
+                            <tr>
+                                <td>
+                                    <form action="/CategoryManagement/DeleteCategory" method="post" style="display:inline">
+                                        <input type="number" name="id" value="@item.id" hidden />
+                                        <button class="btn btn-outline-danger" type="submit"><i class="bi bi-trash3-fill"></i></button>
+                                    </form>
+                                    <button class="btn btn-outline-info" onclick="ReadCategory(@item.id)"><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-outline-warning" onclick="$('.discount-namecategory').val('@item.Name'); $('.discount-categoryid').val('@item.id');">%</button>
+                                </td>
+                                <td>@item.Name</td>
+                                @if (item.Categoryid == 0)
+                                {
+                                    <td>خالی</td>
+                                }
+                                else
+                                {
+                                    int a = 0;
+                                    foreach (var item1 in Categories)
+                                    {
+                                        if (item.Categoryid == item1.id)
+                                        {
+                                            a++;
+                                            <td>@item1.Name</td>
+                                        }
+                                    }
+                                    if (a == 0)
+                                    {
+                                        <td>خالی</td>
+                                    }
+                                }
+                                <td><img src="@item.ImagePath" width="50px" height="50px" alt="@item.Name" /></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/Admin/CategoryManagement/CategoryManagement.js"></script>
+}

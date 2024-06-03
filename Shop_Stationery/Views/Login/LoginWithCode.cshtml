@@ -1,0 +1,87 @@
+﻿@model Shop_Stationery.Models.ViewModelUser.ViewModelLogin.ViewModelLoginCode
+@{
+    ViewData["Title"] = "ورود و ثبت نام";
+    Layout = "~/Views/Shared/_Layout_LoginAndSignup.cshtml";
+}
+@using Newtonsoft.Json;
+@using Shop_Stationery.Models.Classes.ClassesUser.ConfirmCode;
+@{
+    ConfirmCode ConfirmCode = new ConfirmCode();
+    ConfirmCode = JsonConvert.DeserializeObject<ConfirmCode>(ViewBag.ConfirmCode);
+}
+
+<h2 class="title-login">ورود</h2>
+<br />
+<form id="login" asp-action="LoginWithCode" asp-controller="Login" method="post" autocomplete="off">
+    <label class="label-top-input">کد تایید ارسال شده را وارد کنید</label>
+    <input asp-for="ConfirmCode" type="text" maxlength="5" name="ConfirmCode" value="" class="Custom-Input-1" placeholder="کد تایید" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div>
+        <span class="text-time-code">مانده تا دریافت مجدد کد</span>
+        <button id="btn-Timer-Code" type="button" class="Custom-Button-3">
+            00:00
+        </button>
+    </div>
+    <br />
+    <button type="submit" class="Custom-Button-2">
+        تایید
+    </button>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/User/Login/LoginWithCode.js"></script>
+@{
+    var datatime = ConfirmCode.TimeExpiration - DateTime.Now;
+}
+    
+    @if (ConfirmCode.TimeExpiration <= DateTime.Now)
+    {
+        <script>
+            var MyTimer = setInterval(TimerConfirmCode, 1000);
+            var d = new Date(0, 0, 0, 0, 3, 0, 0);
+            function TimerConfirmCode() {
+                var timeNow = d.getTime();
+                d.setTime(timeNow - 1000);
+                if (d.getMinutes() == 0 && d.getSeconds() == 0) {
+                    document.getElementById("btn-Timer-Code").innerText = "دریافت کد";
+                    clearInterval(MyTimer);
+                }
+                else {
+                    if (d.getSeconds().toString().length == 1) {
+                        document.getElementById("btn-Timer-Code").innerText = "0" + d.getMinutes() + ":0" + d.getSeconds() + "";
+                    }
+                    else {
+                        document.getElementById("btn-Timer-Code").innerText = "0" + d.getMinutes() + ":" + d.getSeconds() + "";
+                    }
+                }
+            }
+        </script>
+    }
+    else
+    {
+        <script>
+        var MyTimer = setInterval(TimerConfirmCode, 1000);
+        var d = new Date(0, 0, 0, 0, @datatime.Minutes, @datatime.Seconds , 0,);
+        function TimerConfirmCode() {
+            var timeNow = d.getTime();
+            d.setTime(timeNow - 1000);
+            if (d.getMinutes() == 0 && d.getSeconds() == 0) {
+                document.getElementById("btn-Timer-Code").innerText = "دریافت کد";
+                clearInterval(MyTimer);
+            }
+            else {
+                if (d.getSeconds().toString().length == 1) {
+                    document.getElementById("btn-Timer-Code").innerText = "0" + d.getMinutes() + ":0" + d.getSeconds() + "";
+                }
+                else {
+                    document.getElementById("btn-Timer-Code").innerText = "0" + d.getMinutes() + ":" + d.getSeconds() + "";
+                }
+            }
+        }
+        </script>
+    }
+}
+

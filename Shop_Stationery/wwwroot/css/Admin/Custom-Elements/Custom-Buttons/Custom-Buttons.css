@@ -1,0 +1,39 @@
+﻿
+/*btn1*/
+.Custom-Button-1 {
+    background-color: #00d1b9;
+    color: white;
+    font-size: 18px;
+    transition: background-color .1s;
+    border-radius: 3px;
+    border: none
+}
+.Custom-Button-1:hover {
+    background-color: #8261ee;
+    color: white;
+}
+.Custom-Button-1:focus {
+    background-color: #8261ee;
+    color: white;
+}
+/*btn1*/
+/*btn2*/
+.Custom-Button-2 {
+    background-color: #ff85b8;
+    color: white;
+    font-size: 18px;
+    transition: background-color .1s;
+    border-radius: 3px;
+    border: none
+}
+
+    .Custom-Button-2:hover {
+        background-color: #da80c9;
+        color: white;
+    }
+
+    .Custom-Button-2:focus {
+        background-color: #da80c9;
+        color: white;
+    }
+/*btn2*/

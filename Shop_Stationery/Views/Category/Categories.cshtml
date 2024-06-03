@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "دسته بندی";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@section Style{
+    <link href="~/css/User/Category/Category.css" rel="stylesheet" />
+}
+@{
+    List<Entity.Category> categories = new List<Entity.Category>();
+    categories = ViewBag.Categories;
+
+    void GetSubset(long id)
+    {
+        @foreach (var item in categories)
+        {
+            if (item.Categoryid == id)
+            {
+                <a href="/SearchProduct/Search?Categories=@item.Name" class="Custom-Tag-A-1" target="_blank">
+                    <div class="card-category">
+                        <div class="img-card-category">
+                            <img src="@item.ImagePath.Substring(64, item.ImagePath.Length - 64)" alt="@item.Name" />
+                        </div>
+                        <div class="body-card-category">
+                            <h6 class="name-card-category">
+                                @item.Name
+                            </h6>
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+    }
+}
+
+
+@foreach (var item in categories)
+{
+    if (item.Categoryid == 0)
+    {
+        <div>
+                <div class="container" style="position:relative">
+                    <h4 class="title-category ">                   
+                            @item.Name
+                    </h4>
+                </div>
+            <div class="container">
+                <div class="row-category">
+                    @{
+                        GetSubset(item.id);
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}

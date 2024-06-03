@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "ورود و ثبت نام";
+    Layout = "~/Views/Shared/_Layout_LoginAndSignup.cshtml";
+}
+@model Shop_Stationery.Models.ViewModelUser.ViewModelExistPhoneNumber.ViewModelExistPhoneNumber
+
+<h2 class="title-login">ورود | ثبت نام </h2>
+<br />
+<form asp-action="ExistPhoneNumber" asp-controller="ExistPhoneNumber" method="post">
+    <label class="label-top-input">لطفا شماره موبایل خود را وارد </label>
+    <input asp-for="PhoneNumber" type="text" name="PhoneNumber" value="@ViewData["PhoneNumber"]" maxlength="11" class="Custom-Input-1 " placeholder="شماره موبایل" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <br />
+    <button type="submit" class="Custom-Button-2">
+        ورود
+    </button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

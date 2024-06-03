@@ -1,0 +1,13 @@
+﻿.tickets > table{
+    width:100%; 
+    min-width:100%;
+    text-align:center
+}
+.tickets {
+    overflow-x: auto;
+}
+@media screen and (max-width:576px){
+    .tickets > table {
+        width: 450px;
+    }
+}

@@ -1,0 +1,102 @@
+﻿@font-face {
+    font-family: 'IRANYEKAN';
+    src: url('~\fonts\QS_IRANYEKAN.TTF') format('truetype');
+}
+@font-face {
+    font-family: 'BKoodkBd';
+    src: url('../../../fonts/BKoodkBd.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'VAZIR-LIGHT-FD-WOL';
+    src: url('../../../fonts/VAZIR-LIGHT-FD-WOL.TTF') format('truetype');
+}
+input {
+    font-family: VAZIR-LIGHT-FD-WOL !important;
+    font-size:16px
+}
+body {
+    font-family: VAZIR-LIGHT-FD-WOL, sans-serif;
+}
+
+.login-box {
+    /*height: 600px;*/
+    padding: 0 0 70px 0;
+    width: 400px;
+    background-color: white;
+    border-radius: 30px;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 5px 15px 20px #123450;
+    text-align: center;
+}
+@font-face {
+    font-family: 'IRANYEKAN';
+    src: url('~\fonts\QS_IRANYEKAN.TTF') format('truetype');
+}
+
+.exit-login {
+    text-align: left;
+}
+
+    .exit-login > a {
+        position: relative;
+        top: 15px;
+        left: 15px;
+    }
+
+.login-img-logo > img {
+    width: 100px;
+}
+
+.title-login {
+    margin-top: 30px;
+}
+
+.login-box > form {
+    position: relative;
+    top: 10px;
+}
+
+    .login-box > form > input {
+        width: 65%
+    }
+
+    .login-box > form > button {
+        border: none;
+        padding: 8px 60px;
+        border-radius: 100px;
+    }
+
+@media (max-width:500px) {
+    .login-box {
+        width: 300px;
+    }
+
+        .login-box > form > input {
+            width: 80%
+        }
+}
+
+@media (max-width:350px) {
+    .login-box {
+        width: 259px;
+    }
+}
+
+@media (max-width:300px) {
+    .login-box {
+        width: 238px;
+    }
+}
+
+.forgot {
+    position: relative;
+    margin-top: 30px;
+}
+.text-time-code{
+    font-size:14px;
+}
+.label-top-input{
+    font-size:15px;
+}

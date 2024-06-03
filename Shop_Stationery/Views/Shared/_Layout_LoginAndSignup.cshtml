@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]-stockssoheil</title>
+    <link rel="shortcut icon" type="image/ico" href="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg">
+    @*bootstrap*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @*style*@
+    <link href="~/css/User/Layout-Login-And-Signup/Layout-Login-And-Signup.css" rel="stylesheet" />
+    @*custom element*@
+    <link href="~/css/User/Custom-Elements/Custom-Input/Custom-Input.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-Buttons/Custom-Buttons.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-Tag-A/Custom-Tag-A.css" rel="stylesheet" />
+    @*for tag <i>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            font-family: 'Vazir FD-WOL','A Iranian Sans' !important;
+        }
+    </style>
+    @RenderSection("Style", required: false)
+</head>
+<body style="">
+    <header>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="container">
+                <div class="login-box">
+                    <h6 class="exit-login">
+                        <a href="#" onclick="history.back()" class="Custom-Tag-A-1">
+                            بازگشت
+                        </a>
+                    </h6>
+                    <div class="login-img-logo">
+                        <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" alt="s.s.stock" />
+                    </div>
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,120 @@
+﻿.Special-Offer{
+    margin-top:50px
+}
+.title-offer {
+    display: flex;
+    align-items: center;
+    border-color: rgba(0,0,0,.105);
+    flex-direction: row-reverse;
+    margin-bottom:20px
+}
+    .title-offer:after {
+        content: "";
+        display: flex;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: inherit;
+        flex: 1 1 auto;
+    }
+    .title-offer:before {
+        content: "";
+        display: flex;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: inherit;
+        flex: 1 1 auto;
+    }
+.products-offer{
+    padding:0 10px
+}
+.offer-item {
+    border: 1px solid #dcdbdb;
+    border-radius: 10px;
+    position: relative;
+    transition: 2s;
+}
+.offer-add-basket {
+    color: #fff !important;
+    background-color: #012350;
+    border-color: #012350;
+    /* height: 40px; */
+    font-size: 18px;
+    padding: 8px;
+    border-radius: 10px;
+}
+.offer-item:hover {
+    box-shadow: 3px 1px 10px #c1c1c1
+}
+    .offer-item:hover img {
+        transform: scale(1.1);
+        transition: 2s transform;
+    }
+.offer-item *{
+    color:black
+}
+.offer-item-discount {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    padding: 3px 7px;
+    font-size: 14px;
+    border-radius: 100px;
+    background-color: #f9a61a;
+    color: white;
+}
+.Offer-item-img {
+    text-align: center;
+    padding: 5px 0px;
+    position: relative;
+    overflow:hidden
+}
+    .Offer-item-img > img {
+        width: 170px;
+        height: 170px;
+        border-radius: 10px;
+        transition: 2s transform;
+    }
+@media (max-width: 450px){
+    .Offer-item-img > img{
+        width:150px;
+        height:150px
+    }
+}
+.offer-item-discription {
+    display: none;
+    position: absolute;
+    text-align: center;
+    background-color: white;
+    width: 100.7%;
+    left: -1px;
+    z-index: 9999;
+    border: 1px solid #dcdbdb;
+    padding: 10px 10px;
+    font-size: 14px;
+    top: 263px;
+    border-top: none;
+}
+    .offer-item-discription > button {
+        color:white;
+        z-index:2;
+    }
+    .offer-item-discription > button > i {
+        color: white
+    }
+    @media (max-width: 450px) {
+        .offer-item-discription {
+        top: 210px;
+        width: 101%;
+        left: -1px;
+    }
+}
+@media (max-width: 450px) {
+    .offer-item-discription {
+        top: 230px;
+        width: 101%;
+        left: -1px;
+    }
+}
+.offer-item:hover .offer-item-discription{
+    display:block
+}

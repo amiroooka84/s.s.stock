@@ -1,0 +1,7 @@
+﻿.left-content-body > form > div > .input-address {
+    height: 50px;
+}
+.error{
+    position:relative;
+    right:20px;
+}

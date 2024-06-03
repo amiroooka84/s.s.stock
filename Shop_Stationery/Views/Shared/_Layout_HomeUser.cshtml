@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]-استوک ستاره سهیل</title>
+    <link rel="shortcut icon" type="image/ico" href="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg">
+    <meta name="enamad" content="449458" />
+    <meta name="keywords" content="stock , استوک , کاپشن , سویشرت , استوک ستاره سهیل" />
+    <meta name="google-site-verification" content="FeZPxtTqbqql_RCZAZ7xIxAQJXzZbbdyRz5dyPRdIp8" />
+    @*bootstrap*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-hidden.css" rel="stylesheet" />
+    @*style*@
+    <link href="~/css/User/LayoutHome/LayoutUser.css" rel="stylesheet" />
+    @*animation*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    @*custom element*@
+    <link href="~/css/User/Custom-Elements/Custom-Input/Custom-Input.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-Buttons/Custom-Buttons.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-cards/Custom-Card.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-Tag-A/Custom-Tag-A.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-Slider/Custom-Slider.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-RadioButton/Custom-RadioButton.css" rel="stylesheet" />
+    @*for tag <i>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    @RenderSection("Style", required: true)
+    <style>
+        a {
+            text-decoration: none;
+        }
+        
+    </style>
+
+</head>
+@using Microsoft.AspNetCore.Identity
+@using Entity.UserApp
+@inject UserManager<userapp.UserApp> _UserManager
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@if (User.Identity.IsAuthenticated)
+{
+    if (AuthorizationService.AuthorizeAsync(User, "AdminOnly").IsCompletedSuccessfully)
+    {
+        @*<li><a href="/ProductManagement" class="Custom-Tag-A-1">مدیریت</a></li>*@
+    }
+}
+<body dir="rtl" style="">
+    <div class=" alert alert-info alert-login" style=" display:none;">
+        <div class="container">
+            <span onclick="$('.alert-login').css('display', 'none');">&times;</span>
+            <h6> لطفا برای خرید در سایت ثبت نام فرمایید! </h6>
+        </div>
+    </div>
+    <div class="sidBasket" style="display:none">
+        <span onclick="$('.sidBasket').css('display', 'none');" style="font-size:20px">&times;</span>
+        <h3 class="sidBasket-title" onclick="ReadBasket()">سبد خرید</h3>
+        <div class="box-sidBasket">
+
+
+        </div>
+        <div class="sidBasket-submits">
+            <div class="sidBasket-priceall">
+                جمع کل سبد خرید: <span class="text-success"></span>
+            </div>
+            <div class="buttons-sidBasket">
+                <button type="button" class="Custom-Button-3" onclick="window.location = '/account/basket'">مشاهده سبد خرید</button>
+                <button type="button" class="btn btn-primary" onclick="window.location = '/Checkout/Shipping'">تسویه حساب</button>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-bottom hidden-lg hidden-md">
+        <a class="Custom-Tag-A-1" href="/">
+            <i class="fa fa-home"></i>
+            <br />
+            خانه
+        </a>
+        <a class="Custom-Tag-A-1" href="/Account/Interests">
+            <i class="fa fa-heart-o"></i>
+            <br />
+            علاقه مندی
+        </a>
+        <a class="Custom-Tag-A-1" href="/account/basket">
+            <i class="fa fa-shopping-basket"></i>
+            <br />
+            سبد خرید
+        </a>
+        <a class="Custom-Tag-A-1" href="/account/dashboard">
+            <i class="fa fa-user"></i>
+            <br />
+            پنل کاربری
+        </a>
+    </div>
+    <div class="rocch " style="display:none" onclick="	$(this).toggle(); $('.box-zoom-images').toggle();">
+        <span class="fa fa-times"></span>
+    </div>
+    <div class="box-search-sm " style="display: none;">
+        <form class="row" asp-action="Search" asp-controller="SearchProduct" method="get">
+            <input type="search" maxlength="100" class="col-9 input-search" dir="rtl" name="Search" value="" placeholder="جستجو" />
+            <button type="submit" class="col-3 Custom-Button-1">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+    </div>
+    @*t1*@
+    <header class="header-area">
+        <div class="container">
+            <div class=" row">
+                <div class="col-3 options-right">
+                    <ul>
+                        <li class="hidden-sm hidden-xs">
+                            <div class="container box-search-sm" style="width:300px">
+                                <form class="row" asp-action="Search" asp-controller="SearchProduct" method="get">
+                                    <input type="search" maxlength="100" class="col-9 input-search" dir="rtl" name="Search" value="" placeholder="جستجو" />
+                                    <button type="submit" class="col-3 Custom-Button-1">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="option hidden-md hidden-lg">
+                            <a class="Custom-Tag-A-1 menu-trigger">
+                                <i class="fa fa-navicon" style="font-size:30px"></i>
+                            </a>
+                        </li>
+                        <li class="option">&nbsp;&nbsp;<a class="Custom-Tag-A-1" href="https://instagram.com/stock.s.s?igshid=OGQ2MjdiOTE"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-6 logo-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (AuthorizationService.AuthorizeAsync(User, "AdminOnly").IsCompletedSuccessfully)
+                        {
+                            <a href="/ProductManagement">
+                                <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" alt="s.s.stock">
+                            </a>
+                        }
+                        else
+                        {
+                            <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" alt="s.s.stock">
+                        }
+                    }
+                    else
+                    {
+                        <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" alt="s.s.stock">
+                    }
+                </div>
+                <div class="col-3 options-left">
+                    <ul>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="option">
+                                <form id="logout" asp-action="Logout" asp-controller="Login" method="post">
+                                    <a class="Custom-Tag-A-1" onclick="$('#logout').submit();"><i class="fa fa-sign-out"></i></a>
+                                </form>
+                            </li>
+                        }
+                        <li class="option"><a class="Custom-Tag-A-1 hidden-sm hidden-xs" href="/Account/Interests"><i class="fa fa-heart-o"></i></a></li>
+                        <li class="option"><a class="Custom-Tag-A-1 " href="/Account/Basket"><i class="fa fa-shopping-basket"></i><span class="countbasket">0</span></a></li>
+                        <li class="option">
+                            <a class="Custom-Tag-A-1" href="/Account/DashBoard"><i class="fa fa-user-circle"></i></a>
+                            @*else
+                                {
+                                    <a class="Custom-Tag-A-1 " href="/PhoneNumber" style="font-size:15px"><b>ورود و ثبت نام</b></a>
+                                }*@
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav-2  hidden-sm hidden-xs">
+                <div class="container">
+                    <nav class="main-nav-2 hidden-sm hidden-xs">
+                        <ul class="nav hidden-sm hidden-xs">
+                            <li><a href="/SearchProduct/Search" class="">دسته بندی محصولات</a></li>
+                            <li><a href="/Account/TrackingCodes" class="">کد های پیگیری</a></li>
+                            <li><a href="https://tracking.post.ir/" class="">پیگیری مرسوله</a></li>
+                            <li><a href="/راهنمای سایز" class="">راهنمای سایز</a></li>
+                            <li><a href="/سوالات متداول" class="">سوالات متداول</a></li>
+                            <li><a href="/درباره ما" class="">درباره ما</a></li>
+                            <li><a href="/ارتباط با ما" class="">ارتباط با ما</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="next-nav hidden-lg hidden-md">
+            <div class="container box-search-sm ">
+                <form class="row" asp-action="Search" asp-controller="SearchProduct" method="get">
+                    <input type="search" maxlength="100" class="col-9 input-search" dir="rtl" name="Search" value="" placeholder="جستجو" />
+                    <button type="submit" class="col-3 Custom-Button-1">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+            <a href="/سوالات متداول" class="Custom-Tag-A-1 icon-rulers">
+                <i class="bi bi-question-circle-fill"></i>
+            </a>
+        </div>
+
+        <!-- ***** sidenav Area Start ***** -->
+        <div id="mySidenav" class="sidenav hidden-lg hidden-md">
+            <div class="logo-sidenav">
+                <b>
+                    <strong class="stock">Stock</strong>
+                    <br />
+                    <b class="ss">s.s</b>
+                </b>
+                <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" width="60px" />
+            </div>
+            <ul class="ul-sidenav">
+                <li><a href="/SearchProduct/Search" class="">دسته بندی محصولات</a></li>
+                <li><a href="/Account/TrackingCodes" class="">کد های پیگیری</a></li>
+                <li><a href="https://tracking.post.ir/" class="">پیگیری مرسوله</a></li>
+                <li><a href="/راهنمای سایز" class="">راهنمای سایز</a></li>
+                <li><a href="/سوالات متداول" class="">سوالات متداول</a></li>
+                <li><a href="/درباره ما" class="">درباره ما</a></li>
+                <li><a href="/ارتباط با ما" class="">ارتباط با ما</a></li>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (AuthorizationService.AuthorizeAsync(User, "AdminOnly").IsCompletedSuccessfully)
+                    {
+                        <li><a href="/ProductManagement" class="Custom-Tag-A-2"><b>مدیریت</b></a></li>
+                    }
+                }
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li><a href="/PhoneNumber" class="Custom-Tag-A-2"><b>ورود و ثبت نام</b></a></li>
+                }
+            </ul>
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+
+        </div>
+    </header>
+
+
+    <div class="container">
+        <div id="demo" class="carousel slide Panel-Notification" data-bs-ride="carousel">
+            @await Component.InvokeAsync("Banner")
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+    <div class="">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer>
+        <div style="padding:0">
+            <div class=" box-information-footer">
+                <div class="container">
+                    <img src="~/assets_templates/template1/images/Orginal.png" />
+                    <img src="~/assets_templates/template1/images/ComeMoney.png" />
+                    <img src="~/assets_templates/template1/images/FastSend.png" />
+                </div>
+
+                @*<div class="box-email-footer">
+            <span>
+                <i>
+                    <i class="fa fa-address-card icon"></i>
+                </i>
+                آدرس
+                <br />
+                کرمانشاه.صحنه.خیابان جانبازان.بین ایثار5و6
+            </span>
+        </div>
+        <br class="hidden-lg hidden-md hidden-sm" />
+        <div class="box-phone-footer">
+            <span>
+                <i>
+                    <i class="fa fa-phone icon"></i>
+                </i>
+                شماره تماس
+            </span>
+        </div>*@
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="box-list-footer">
+                <ul>
+                    <li>
+                        <span>دسته ها</span>
+                        <ul>
+                            <li><a href="/SearchProduct/Search" class="">دسته بندی محصولات</a></li>
+                            <li><a href="/راهنمای سایز" class="">راهنمای سایز</a></li>
+                            <li><a href="/سوالات متداول" class="">سوالات متداول</a></li>
+                            <li><a href="/درباره ما" class="">درباره ما</a></li>
+                            <li><a href="/ارتباط با ما" class="">ارتباط با ما</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <span>پیگیری</span>
+                        <ul>
+                            <li><a href="https://tracking.post.ir/" class="">پیگیری مرسوله</a></li>
+                            <li><a href="/Account/TrackingCodes" class="">کد های پیگیری</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <hr />
+            <div class="box-text-footer">
+                <h5>درباره فروشگاه ما</h5>
+                <p>
+                    تیم استوک ستاره سهیل از سال ۹۶ فعالیت خود را بیشتر در زمینه لباس کوهنوردی شروع کردیم و بخاطر استقبال شما هم وطنان و همنوردان لباس های دیگه هم اضافه کردیم
+                    لباس های ما بصورت تخصصی بررسی و خریداری میشود و به همین دلیل انواع برند های مختلف دنیا با کیفیت عالی برخوردار است.
+                </p>
+            </div>
+
+        </div>
+        <div class="" style="text-align: center; padding: 0 20px; width: 100%; background-color: white;">
+            <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=314596&amp;Code=IGZCMozH78eAM9qi6TD1">
+                <img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=314596&amp;Code=IGZCMozH78eAM9qi6TD1" alt="" style="cursor: pointer; background-color: white; border-radius: 5px; padding: 30px;" id="IGZCMozH78eAM9qi6TD1">
+            </a>
+        </div>
+        <div class="box-instagram-footer">
+            <a class="Custom-Tag-A-1" href="https://instagram.com/stock.s.s?igshid=OGQ2MjdiOTE">
+                <i class="fa fa-instagram"></i>
+                <br />
+                <span>
+                    ما را در اینستاگرام دنبال کنید
+                </span>
+            </a>
+        </div>
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/assets_templates/template1/js/custom.js"></script>
+    <script src="~/lib/blazy/blazy.min.js"></script>
+    <script src="~/js/User/Layout_Home/Layout_Home.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        var bLazy = new Blazy({
+            breakpoints: [{
+                src: 'data-src'
+            }]
+            , success: function (element) {
+                setTimeout(function () {
+                    // We want to remove the loader gif now.
+                    // First we find the parent container
+                    // then we remove the "loading" class which holds the loader image
+                    var parent = element.parentNode;
+                    parent.className = parent.className.replace(/\bloading\b/, '');
+                }, 200);
+            }
+        });
+
+
+
+        function CountBasket() {
+            $.ajax({
+                url: "/Basket/CountBasket",
+                method: "Get",
+                success: function (data) {
+                    $(".countbasket").text("" + data + "");
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+
+    </script>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            CountBasket();
+        </script>
+
+    }
+</body>
+</html>

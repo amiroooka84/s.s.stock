@@ -1,0 +1,75 @@
+﻿@font-face {
+    font-family: 'IRANYEKAN';
+    src: url('~\fonts\QS_IRANYEKAN.TTF') format('truetype');
+}
+body{
+    font-family:IRANYekan;
+}
+.sidebar {
+    width: 300px;
+    display:none;
+    background-color: #0e0069;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    color:white;
+}
+
+.ul-sidebar {
+    list-style-type: disclosure-closed;
+    margin-top:50px;
+}
+
+.ul-sidebar > li{
+    text-align: right;
+    padding:5px 0;
+    position:relative;
+}
+
+.arrow-down {
+    margin-right: auto;
+    position: absolute;
+    left: 0px;
+    font-size: 15px;
+    cursor:pointer;
+}
+.sidebar-Subset-li {
+    display: none;
+    margin-top:10px;
+}
+.sidebar-Subset-li > ul > li{
+    padding:3px 0;
+}
+
+.navbar-head {
+    height: 50px;
+    background-color: #0e0069;
+    color:white;
+}
+.open-sidebar{
+    float:right;
+    font-size:40px;
+    cursor:pointer
+}
+    .open-sidebar:hover {
+        color: #ff85b8;
+    }
+.close-sidebar {
+    font-size: 30px;
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.username-navbar{
+    float:left;
+    font-size:20px;
+    margin-top:10px;
+}
+.title{
+    text-align:center;
+    margin-top:40px;
+}

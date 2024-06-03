@@ -1,0 +1,229 @@
+﻿
+.line-Colored {
+    position: relative;
+    /*height: 65px;*/
+    margin-bottom:15px
+}
+
+    .line-Colored > .text-title {
+        margin-right: 50px;
+        display: inline-block;
+    }
+
+    .line-Colored > .text-subtitle {
+        float: left;
+        font-size: 23px;
+        margin-top: 10px;
+    }
+
+    .line-Colored .text-subtitle span {
+        color: #f9a61a;
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .line-Colored > .text-title::before {
+        width: 2000px;
+        height: 10px;
+        border-radius: 25px;
+        background-color: rgb(249 166 26 / 0.26);
+        position: absolute;
+        right: -1990px;
+        top: 15px;
+        content: '';
+    }
+.back-progressBar {
+    background-color: rgb(249 166 26 / 0.41);
+    height: 4px;
+    width: 30%;
+    border-radius: 10px;
+    position: absolute;
+    top: 218px;
+}
+.value-progressBar {
+    background-color: #f9a61a;
+    height: 4px;
+    border-radius: 10px;
+    float: left;
+}
+.line-Colored > .text-title::after {
+    width: 50px;
+    height: 10px;
+    border-radius: 25px;
+    background-color: #f9a61a;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    content: '';
+}
+
+@media (max-width: 765px) {
+    .line-Colored > .text-subtitle {
+        float: right;
+        margin-top: 0;
+    }
+
+        .line-Colored > .text-subtitle::before {
+            margin-right: 50px;
+            content: "";
+        }
+
+    .line-Colored .text-subtitle span {
+        color: #f9a61a;
+        font-size: 20px;
+        margin-right: 10px;
+    }
+}
+/*//////////////*/
+/*//////////////*/
+/*//////////////*/
+
+
+
+
+
+
+.slider-Offer-btn-next {
+    position: absolute;
+    right: -5px;
+    top: 45%;
+    z-index: 10;
+    border: none;
+}
+
+.slider-Offer-btn-prev {
+    position: absolute;
+    left: -5px;
+    top: 45%;
+    z-index: 10;
+    border: none;
+}
+
+.slider-Offer-Box {
+    height: 310px;
+    background-color: #012350;
+    margin-bottom: 40px;
+    margin-top: 15px;
+}
+
+    .slider-Offer-Box > .container {
+        background-color: white;
+        border-radius: 30px;
+        height: 290px;
+        position: relative;
+        top: 10px;
+        padding: 20px 30px;
+    }
+
+@media screen and (max-width:576px) {
+    .slider-Offer-Box {
+        padding: 0 15px;
+    }
+}
+
+.slider-Offer-Box-ul {
+    background-color: white;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-padding: 0 10px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+    .slider-Offer-Box-ul::-webkit-scrollbar {
+        background-color: #ededed;
+        border-radius: 10px;
+        width: 20px;
+        cursor: help;
+        height: 6px;
+    }
+
+    .slider-Offer-Box-ul::-webkit-scrollbar-thumb {
+        background-color: #9f9f9f;
+        border-radius: 10px;
+    }
+
+    .slider-Offer-Box-ul > li {
+        scroll-snap-align: start;
+        display: inline-block;
+        height: 250px;
+        width: 200px;
+        font-size: 13px;
+        margin-right: 10px;
+        color: #585858;
+        min-width: 200px;
+        border: 1px solid #e4e4e4;
+    }
+
+        .slider-Offer-Box-ul > li:first-child {
+            min-width: 160px;
+            background-color: white;
+            color: black;
+            font-size: 17px;
+            text-align: center;
+            padding: 20px 0;
+            border: none;
+        }
+
+        .slider-Offer-Box-ul > li:last-child {
+            border-radius: 20px 0 0 20px;
+        }
+
+        .slider-Offer-Box-ul > li:nth-child(2) {
+            border-radius: 0 20px 20px 0;
+        }
+
+.slider-discount-Box {
+    height: 250px;
+    background-color: #012350;
+    margin-bottom: 40px;
+    margin-top: 15px;
+}
+
+.slider-Offer-item {
+    padding: 10px;
+}
+.slider-Offer-item>a {
+    color:#585858
+}
+.slider-Offer-item-img {
+    text-align: center;
+    padding: 5px 0px;
+    position:relative
+}
+
+    .slider-Offer-item-img > img {
+        width: 170px;
+        height: 170px;
+    }
+
+.slider-Offer-item-price {
+    text-align: left;
+    font-size: 14px;
+    margin-left: 3px;
+}
+
+.slider-Offer-item-discount {
+    margin-top: 5px;
+    text-align: left;
+    position: relative;
+    font-size: 16px;
+}
+.slider-Offer-item-discount > p{
+    margin-bottom:0;
+}
+.slider-Offer-item-icon {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    padding: 3px 7px;
+    font-size: 14px;
+    border-radius: 100px;
+    background-color: #f9a61a;
+    color: white;
+}
+
+    .slider-Offer-item-icon > i {
+        color: #f9a61a;
+    }

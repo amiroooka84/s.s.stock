@@ -1,0 +1,14 @@
+﻿@font-face {
+    font-family: 'IRANYEKAN';
+    src: url('~\fonts\QS_IRANYEKAN.TTF') format('truetype');
+}
+.Custom-Tag-A-1{
+    color:white !important;
+    font-family:IRANYekan , sans-serif !important;
+    text-decoration:none !important;
+}
+
+.Custom-Tag-A-1:hover {
+    color: #ff85b8 !important;
+}
+

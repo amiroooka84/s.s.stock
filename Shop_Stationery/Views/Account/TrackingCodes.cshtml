@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "کدهای پیگیری";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@using Entity.TrackingCode
+@section Style {
+
+}
+<div class="container">
+    <h3 style="text-align:center">
+        کدهای پیگیری
+        <br />
+        <br />
+        <a href="https://tracking.post.ir/" class="btn btn-success" style="float:left">پیگیری مرسوله</a>
+        <br />
+    </h3>
+    <br />
+    <table class="table table-hover" style="text-align:center">
+        <tr>
+            <th>تصویر</th>
+            <th>...</th>
+            <th>تاریخ</th>
+        </tr>
+        @foreach (TrackingCode item in ViewBag.TrackingCodes)
+        {
+            <tr>
+                <td><img src="@item.ImagePath" alt="stock" width="100px" /></td>
+                <td><a href="@item.ImagePath" download="@item.ImagePath" class="btn btn-success">دانلود</a></td>
+                <td>@item.Date</td>
+            </tr>
+        }
+    </table>
+</div>

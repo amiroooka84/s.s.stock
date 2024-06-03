@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@section Style{
+    <link href="~/css/Admin/PagesManagement/PagesManagement.css" rel="stylesheet" />
+}
+
+<div class="modal" id="AddBannerModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">اضافه کردن بنر</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" style="margin: 0;"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="form-add-banner" asp-action="AddBanner" asp-controller="PagesManagement" method="post" enctype="multipart/form-data">
+                    <input type="file" class="input-select-file Custom-Input-2" name="File" accept=".png,.jpg,.icon" value="" />
+                    <input type="text" class="input-name-folder Custom-Input-2" name="link" value="" placeholder="لینک" />
+                    <br />
+                    @*button-submit-file*@
+                    <button type="submit" class=" Custom-Button-1">ارسال</button>
+                    <br />
+                    <br />
+                    <div class="back-progressBar">
+                        <div class="progressBar">
+                            <div class="value-progressBar">
+
+                            </div>
+                        </div>
+                    </div>
+                    <p class="Results-create-file"></p>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-manage">
+    <h1 class="title">
+        مدیریت بنر ها
+    </h1>
+    <div class="body-page-manage">
+        <hr />
+        <h2 class="page-manage-title-table">
+            بنر لایوت
+        </h2>
+        <div class="page-manage-options">
+            <button class="btn btn-success" type="button" onclick="$('.input-name-folder').val('Img-Banner-layout')" data-bs-toggle="modal" data-bs-target="#AddBannerModal">افزودن بنر</button>
+        </div>
+        <hr />
+        <div class="table-box-page-manage">
+            <div class="table-box-banner-Layout">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>...</th>
+                            <th>آدرس</th>
+                            <th>تصویر</th>
+                        </tr>
+                    </thead>
+                    @foreach (Entity.Banner item in ViewBag.ListBannerLayout)
+                    {
+                        <tr>
+                            <td>
+                                <form asp-action="DeleteBanner" method="post">
+                                    <input type="number" name="Bannerid" value="@item.id" hidden/>
+                                    <button type="submit" class="btn btn-outline-danger "><i class="bi bi-trash3-fill"></i></button>
+                                </form>
+                            </td>
+                            <td class="text-primary">@item.ImagePath</td>
+                            <td class="text-primary">@item.link</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script src="~/js/Admin/PageManagement/PageManagement.js"></script>
+}

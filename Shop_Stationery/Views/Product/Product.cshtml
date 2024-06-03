@@ -1,0 +1,612 @@
+﻿@{
+    ViewData["Title"] = ViewBag.title;
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@model Entity.Product
+@section Style{
+    <link href="~/css/User/Product/Product.css" rel="stylesheet" />
+}
+@using Entity;
+@using Entity.AttributeProduct;
+@{
+    List<ImagePath> imagePaths = new List<ImagePath>();
+    imagePaths = ViewBag.imagePaths;
+    List<Shop> shops = new List<Shop>();
+    shops = ViewBag.Shops;
+    List<AttributeProduct> Allattributes = new List<AttributeProduct>();
+    Allattributes = ViewBag.AttributeProduct;
+    List<string> NameColors = new List<string>();
+    NameColors = ViewBag.NameColors;
+    List<string> Size = new List<string>();
+    Size = ViewBag.Size;
+    bool ExistInBasket = false;
+    if (User.Identity.IsAuthenticated)
+    {
+        ExistInBasket = ViewBag.ExistInBasket;
+    }
+    List<Product> SimilarProduct = new List<Product>();
+    SimilarProduct = ViewBag.SimilarProduct;
+    string NameCategory = ViewBag.NameCategory;
+    List<Entity.Comment.Comment> comments = new List<Entity.Comment.Comment>();
+    comments = ViewBag.Comments;
+
+    @using Microsoft.AspNetCore.Identity
+    @using Entity.UserApp
+    @inject UserManager<userapp.UserApp> _UserManager
+    @using Microsoft.AspNetCore.Authorization
+    @inject IAuthorizationService AuthorizationService
+}
+<div class="box-zoom-images" style="display:none">
+    <div id="Product" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators carousel-indicators-product">
+            <!-- The slideshow/carousel -->
+            <div class="carousel-inner ">
+                @{
+                    int w = 1;
+                }
+                @foreach (var item in imagePaths)
+                {
+                    string r = "";
+                    if (w == 1)
+                    {
+                        r = "active";
+                    }
+                <div class="carousel-item @r">
+                    <img class="b-lazy d-inline"
+                         src="~/assets_templates/template1/images/thumb.png"
+                         data-src="@item.Image.Replace("wwroot" , "")"
+                         alt="@item.ProductName"
+                          width="100%" height="100%"/>
+                </div>
+                    w = 2;
+                }
+
+            </div>                    <!-- Left and right controls/icons -->
+            <button class="carousel-control-prev btn-carousel-product " type="button" data-bs-target="#Product" data-bs-slide="next">
+                <span class="carousel-control-prev-icon icon-btn-carousel-product"></span>
+            </button>
+            <button class="carousel-control-next btn-carousel-product" type="button" data-bs-target="#Product" data-bs-slide="prev">
+                <span class="carousel-control-next-icon icon-btn-carousel-product "></span>
+            </button>
+        </div>
+    </div>
+</div>
+    <div class="modal" id="helper-size">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">راهنمای سایز</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="margin: 0;"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    @Html.Raw(Model.Specifications)
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h6 class="breadcrumb">
+            فروشگاه استوک ستاره سهیل&nbsp;&nbsp;&rsaquo;&nbsp;...&nbsp;&rsaquo;&nbsp;&nbsp;<a class="Custom-Tag-A-2" href="/Category/@NameCategory">@NameCategory</a>&nbsp;&nbsp;&rsaquo;&nbsp;&nbsp;<a class="Custom-Tag-A-2" href="/product/@Model.Name">@Model.Name</a>
+        </h6>
+        <div class="row">
+            <div class="images-paroduct col-12 col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                <div id="Product1" class="carousel slide" data-bs-ride="carousel">
+                    <div class="icons-img-product">
+                        <span class="icons-product">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (ViewBag.interest)
+                                {
+                                    <span id="interest" class="isinterest fa fa-heart" onclick="uninterest(@Model.id)"></span>
+                                }
+                                else
+                                {
+                                    <span id="interest" class="uninterest fa fa-heart-o" onclick="interest(@Model.id)"></span>
+                                }
+                            }
+                            else
+                            {
+                                <span id="interest" class="uninterest fa fa-heart-o" onclick="window.location = '/PhoneNumber'"></span>
+                            }
+                            <a href="/Compare/SelectProduct?Product1=@Model.Name" class="Custom-Tag-A-1"><i class="fa fa-random"></i></a>
+
+                            <span id="interest" class="uninterest fa fa-search icon-zoom-img" onclick="$('.rocch').toggle();$('.box-zoom-images').toggle();"></span>
+
+                        </span>
+                    </div>
+                    <div class="carousel-indicators carousel-indicators-product">
+                        @for (int i = 0; i < imagePaths.Count; i++)
+                        {
+                            string a = "";
+                            if (i == 1)
+                            {
+                                a = "active";
+                            }
+                            <button type="button" data-bs-target="#Product1" data-bs-slide-to="@i" class="@a item-carousel-indicators"></button>
+                        }
+                    </div>
+
+                    <!-- The slideshow/carousel -->
+                    <div class="carousel-inner carousel-inner-product">
+                        @{
+                            int b = 1;
+                        }
+                        @foreach (var item in imagePaths)
+                        {
+                            string a = "";
+                            if (b == 1)
+                            {
+                                a = "active";
+                            }
+                        <div class="carousel-item @a">
+                            <img class="b-lazy d-inline "
+                                 src="~/assets_templates/template1/images/thumb.png"
+                                 data-src="@item.Image"
+                                 alt="@item.ProductName"
+                                 width="100%" height="400px"/>
+                        </div>
+                            b = 2;
+                        }
+
+                    </div>                    <!-- Left and right controls/icons -->
+                    <button class="carousel-control-prev btn-carousel-product " type="button" data-bs-target="#Product1" data-bs-slide="next">
+                        <span class="carousel-control-prev-icon icon-btn-carousel-product"></span>
+                    </button>
+                    <button class="carousel-control-next btn-carousel-product" type="button" data-bs-target="#Product1" data-bs-slide="prev">
+                        <span class="carousel-control-next-icon icon-btn-carousel-product "></span>
+                    </button>
+                </div>
+                <div class="select-img">
+                    @{
+                        int e = -1;
+                    }
+                    @foreach (var item in imagePaths)
+                    {
+                        e++;
+
+                        string a = "";
+                        if (e == 0)
+                        {
+                            a = "active";
+                        }
+
+                    <span>
+                        <img class="b-lazy @a d-inline "
+                             src="~/assets_templates/template1/images/thumb.png"
+                             data-src="@item.Image"
+                             alt="@item.ProductName" 
+                             data-bs-target="#Product1" data-bs-slide-to="@e"/>
+
+                    </span>
+                    }
+                </div>
+            </div>
+            <div class="infomation-product col-12 col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                <div class="box-information-product">
+                    <h4>
+                        <b>@Model.Name</b>
+                    </h4>
+                    <h6 class="information-item-product">
+                        <span class="bi bi-upc-scan"></span>
+                        شناسه کالا:
+                        @Model.Code
+                    </h6>
+                    <h6 class="information-item-product">
+                        <span class="fa fa-star-half-full"></span>
+                        دسته بندی:
+                        @NameCategory
+                    </h6>
+                    <br />
+                    <div class="box-select-information">
+                        @if (NameColors.Count > 0)
+                        {
+                            <div>
+                                <form class="form-select-color">
+                                    @if (NameColors.Count > 0)
+                                    {
+                                        int isCheckColor = 0;
+
+                                        @foreach (string item in NameColors)
+                                        {
+                                            if (item == "0")
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                <h6 class="title-select-color"><b>رنگ:</b></h6>
+                                                <span class="select-color-Product">
+                                                    @foreach (var item1 in Allattributes)
+                                                    {
+                                                        if (item1.Color == item)
+                                                        {
+                                                            <span style="background-color: @item1.ColorCode"></span>
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    <label>
+                                                        @item
+                                                    </label>
+                                                    @if (isCheckColor == 0)
+                                                    {
+                                                        <input type="radio" onclick="Calculate(@Model.id)" class="input-select-color Custom-RadioButton" checked name="name" value="@item" />
+                                                        isCheckColor++;
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="radio" onclick="Calculate(@Model.id)" class="input-select-color Custom-RadioButton" name="name" value="@item" />
+                                                    }
+                                                </span>
+                                            }
+
+                                        }
+                                    }
+                                </form>
+                            </div>
+                        }
+
+                        <h6 class="title-select-size"><b>اندازه ها:</b> <span class="btn btn-info" style="cursor:pointer" onclick="window.location = '/راهنمای سایز' " >راهنمای سایز</span></h6>
+                        @Html.Raw(Model.Specifications.Replace(".", "<br/>"))
+                        <br />
+                        <br />
+                        <div class="alert alert-danger">
+                            <i class="fa fa-exclamation-circle" style="font-size:20px"></i>
+                            در اندازگیری دقت کنید مرجوعی سایز نداریم
+                        </div>
+                        <div class="product-extra">
+                            <br />
+                            <ul>
+                                <li>
+                                    <i class="fa fa-id-card"></i>
+                                    تضمین قیمت و کیفیت
+                                </li>
+                                <li>
+                                    <i class="fa fa-car"></i>
+                                    تحویل سریع در کمترین زمان ممکن
+                                </li>
+                                <li>
+                                    <i class="fa fa-history"></i>
+                                    بازگشت وجه در صورت عدم رضایت
+                                </li>
+                                <li>
+                                    <i class="fa fa-star"></i>
+                                    پوشاک برند با بهترین الیاف
+                                </li>
+                            </ul>
+                        </div>
+
+                        @if (Size.Count > 0)
+                        {
+                            <br  class="hidden-xs hidden-sm"/>
+                            <div>
+                                @{
+                                    int isCheckSize = 0;
+                                }
+                                @foreach (var item in Size)
+                                {
+                                    if (item == "0")
+                                    {
+
+                                    }
+                                    else
+                                    if (item != null)
+                                    {
+                                        <span class="select-size-Product" style="white-space:nowrap">
+                                            <label>
+                                                @item
+                                            </label>
+                                            @if (isCheckSize == 0)
+                                            {
+                                                <input type="radio" onclick="Calculate(@Model.id)" class="input-select-size Custom-RadioButton" checked name="name" value="@item" />
+                                                isCheckSize++;
+                                            }
+                                            else
+                                            {
+                                                <input type="radio" onclick="Calculate(@Model.id)" class="input-select-size Custom-RadioButton" checked name="name" value="@item" />
+                                            }
+                                        </span>
+                                    }
+                                }
+
+                            </div>
+                        }
+
+                    </div>
+                    <br />
+                    <div class="box-price-product">
+                        <div class="price-product">
+                            @if (Model.Discount != 0)
+                            {
+                                <h4 class="text-success">
+                                    <span class="dsicount-icon">
+                                        @Model.Discount%
+                                    </span>
+                                    @{
+                                        long p = (Model.Price / 100) * Model.Discount;
+                                        long price = Model.Price - p;
+                                    }
+                                    @price.ToString("n0")
+                                    <span class="toman-price">
+                                        تومان
+                                    </span>
+                                    <br class="hidden-lg hidden-md" />
+                                    <del style="font-size:15px" class="text-danger">
+                                        @Model.Price.ToString("n0")
+                                        <span class="toman-price">
+                                            تومان
+                                        </span>
+                                    </del>
+                                </h4>
+
+
+                            }
+                            else
+                            {
+                                <h4 class="notDiscount-product text-success">
+                                    @Model.Price.ToString("n0")
+                                    <span class="toman-price">
+                                        تومان
+                                    </span>
+                                </h4>
+                            }
+                        </div>
+                        <input id="productid" type="number" name="" hidden value="@Model.id" />
+                        @if (!ExistInBasket)
+                        {
+                            <button onclick="AddBasket(@Model.id);" class="Custom-Button-2 btn-add-basket">
+                                <span>
+                                    افزودن به سبد خرید
+                                </span>
+                                <p class="loading" style="display:none">&bull;&bull;&bull;</p>
+                            </button>
+                        }
+                        else
+                        {
+                            <button onclick="window.location = '/Account/Basket'" class="Custom-Button-2 btn-add-basket">
+                                <span>
+                                    موجود در سبد خرید
+                                </span>
+                                <p class="loading" style="display:none">&bull;&bull;&bull;</p>
+                            </button>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div class="box-Discription col-12">
+
+                <div class="Discription-product">
+                    <div class="left-content-body">
+                        <div class="tab">
+                            <button class="tablinks active" onclick="OpenOrder(event, 'Discription')">توضیحات <i class="fa fa-info-circle"></i></button>
+                            @*<button class="tablinks" onclick="OpenOrder(event, 'specs')">مشخصات <i class="bi bi-clipboard-data"></i></button>*@
+                            @*<button class="tablinks" onclick="OpenOrder(event, 'question')">سوالات متداول <i class="fa fa-question-circle"></i></button>*@
+                            @*<button class="tablinks" onclick="OpenOrder(event, 'View')">دیدگاه <i class="bi bi-chat-right-text"></i></button>*@
+                        </div>
+                        <!-- Tab content -->
+                        <div id="Discription" class="tabcontent active" style="display:block;">
+                            <br />
+                            <div class="Current-body">
+                                @Html.Raw(Model.Discription)
+                            </div>
+                        </div>
+                        @*<div id="specs" class="tabcontent Current-body">
+                                <br />
+                                <div class="Current-body">
+                                    @Html.Raw(Model.Specifications)
+                                </div>
+                            </div>*@
+
+                        <div id="question" class="tabcontent">
+                            <br />
+                            <div class="Current-body">
+                                @Html.Raw(Model.Specifications)
+                            </div>
+                        </div>
+                        <div id="View" class="tabcontent">
+                            Comment
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+    </div>
+    @*<div class="line-Colored container">
+            <h2 class="text-title">
+                کالاهای مشابه
+            </h2>
+            <br class="hidden-lg hidden-md hidden-sm" />
+            <h5 class="text-subtitle">
+                مشاهده همه
+                <span class="fa fa-arrow-circle-left">
+                </span>
+            </h5>
+        </div>*@
+    <div class="slider-Offer-Box">
+        <div class="container">
+            <button class="slider-Offer-btn-prev Custom-Button-1">
+                <span class="fa fa-arrow-left"></span>
+            </button>
+            <button class="slider-Offer-btn-next Custom-Button-1">
+                <span class="fa fa-arrow-right"></span>
+            </button>
+            <ul class="slider-Offer-Box-ul">
+                <li>
+                    محصولات مشابه
+                    <br />
+                    <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" />
+                </li>
+                @foreach (var item in SimilarProduct)
+                {
+                    <li class="slider-Offer-item">
+                        <a href="/Product/@item.Name">
+                            <div class="slider-Offer-item-img">
+                                <img class="b-lazy"
+                                     src="~/assets_templates/template1/images/thumb.png"
+                                     data-src="@item.ImagePath"
+                                     alt="@item.Name" />
+                            </div>
+                            <div>
+                                @if (item.Discount != 0)
+                                {
+                                    <div class="slider-Offer-item-discount">
+                                        <p>
+                                            @{
+                                                long p = (item.Price / 100) * item.Discount;
+                                                long price = item.Price - p;
+                                            }
+                                            @price.ToString("n0")
+                                            <span class="toman-price">
+                                                تومان
+                                            </span>
+                                        </p>
+                                        <span class="slider-Offer-item-icon">
+                                            @item.Discount%
+                                        </span>
+                                    </div>
+                                    <div class="slider-Offer-item-price">
+                                        <p class="price-del">
+                                            <del>
+                                                @item.Price
+                                            </del>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="slider-Offer-item-discount">
+                                        <p>
+                                            @item.Price.ToString("n0")
+                                            <span class="toman-price">
+                                                تومان
+                                            </span>
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="modal" id="add-comment">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">اضافه کردن نظر</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="margin: 0;"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="container write-comment">
+                        <form asp-action="AddComment" asp-controller="Comments" method="post">
+                            <input type="number" name="Productid" value="@Model.id" hidden />
+                            <input type="text" name="NameProduct" value="@Model.Name" hidden />
+
+                            <div class="row row-editor">
+                                <div class="editor-container">
+                                    <div class="editor" style="display: none;">
+                                    </div>
+                                    <textarea hidden type="text" id="Texteditor" placeholder="نظر خود را بنویسید " data-val="true" data-val-required="لطفا فیلد نظر سوال را وارد کنید" name="TextComment" @*style="display: none;"*@></textarea>
+
+
+                                    <div class="ck ck-reset ck-editor ck-rounded-corners" role="application" dir="rtl" lang="fa" aria-labelledby="ck-editor__label_e5c5a96758fcbbf3d9a7f2685fdb95446">
+                                        <label class="ck ck-label ck-voice-label" id="ck-editor__label_e5c5a96758fcbbf3d9a7f2685fdb95446">ویرایشگر متن غنی</label><div class="ck ck-editor__top ck-reset_all" role="presentation"><div class="ck ck-sticky-panel"><div class="ck ck-sticky-panel__placeholder" style="display: none;"></div><div class="ck ck-sticky-panel__content"><div class="ck ck-toolbar ck-toolbar_grouping" role="toolbar" aria-label="نوارابزار ویرایشگر"><div class="ck ck-toolbar__items"><div class="ck ck-dropdown ck-heading-dropdown"><button class="ck ck-button ck-off ck-button_with-text ck-dropdown__button" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e5363d1f6b41866725ec3c72bf5c74da3" data-cke-tooltip-text="عنوان" data-cke-tooltip-position="s" aria-haspopup="true" aria-expanded="false"><span class="ck ck-button__label" id="ck-editor__aria-label_e5363d1f6b41866725ec3c72bf5c74da3">عنوان 1</span><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-dropdown__arrow" viewBox="0 0 10 10"><path d="M.941 4.523a.75.75 0 1 1 1.06-1.06l3.006 3.005 3.005-3.005a.75.75 0 1 1 1.06 1.06l-3.549 3.55a.75.75 0 0 1-1.168-.136L.941 4.523z"></path></svg></button><div class="ck ck-reset ck-dropdown__panel ck-dropdown__panel_se"><ul class="ck ck-reset ck-list"><li class="ck ck-list__item"><button class="ck ck-button ck-heading_paragraph ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e8196cefba37d692a62a8cce063231e7b" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_e8196cefba37d692a62a8cce063231e7b">پاراگراف</span></button></li><li class="ck ck-list__item"><button class="ck ck-button ck-heading_heading1 ck-on ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e05963c2b9c6610cc7517915d5b8609bc" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_e05963c2b9c6610cc7517915d5b8609bc">عنوان 1</span></button></li><li class="ck ck-list__item"><button class="ck ck-button ck-heading_heading2 ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_efade628e21de2ad5648f7de9e4a86f4e" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_efade628e21de2ad5648f7de9e4a86f4e">عنوان 2</span></button></li><li class="ck ck-list__item"><button class="ck ck-button ck-heading_heading3 ck-off ck-button_with-text" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_ea51048ebb0b1dee3e04db2f8e953fbef" data-cke-tooltip-position="s"><span class="ck ck-button__label" id="ck-editor__aria-label_ea51048ebb0b1dee3e04db2f8e953fbef">عنوان 3</span></button></li></ul></div></div><button class="ck ck-button ck-disabled ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e156b4ba458fe5723575ef1ac8781164c" aria-disabled="true" data-cke-tooltip-text="بازگردانی (Ctrl+Z)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="m14.958 9.367-2.189 1.837a.75.75 0 0 0 .965 1.149l3.788-3.18a.747.747 0 0 0 .21-.284.75.75 0 0 0-.17-.945L13.77 4.762a.75.75 0 1 0-.964 1.15l2.331 1.955H6.22A.75.75 0 0 0 6 7.9a4 4 0 1 0 1.477 7.718l-.344-1.489A2.5 2.5 0 1 1 6.039 9.4l-.008-.032h8.927z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_e156b4ba458fe5723575ef1ac8781164c">بازگردانی</span></button><button class="ck ck-button ck-disabled ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e52c9be2a77ecd9eb1b6fe94c306611bf" aria-disabled="true" data-cke-tooltip-text="باز انجام (Ctrl+Y)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="m5.042 9.367 2.189 1.837a.75.75 0 0 1-.965 1.149l-3.788-3.18a.747.747 0 0 1-.21-.284.75.75 0 0 1 .17-.945L6.23 4.762a.75.75 0 1 1 .964 1.15L4.863 7.866h8.917A.75.75 0 0 1 14 7.9a4 4 0 1 1-1.477 7.718l.344-1.489a2.5 2.5 0 1 0 1.094-4.73l.008-.032H5.042z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_e52c9be2a77ecd9eb1b6fe94c306611bf">باز انجام</span></button><button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_e886b4040e5b759290f4feaee6f794e70" aria-pressed="false" data-cke-tooltip-text="درشت (Ctrl+B)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="M10.187 17H5.773c-.637 0-1.092-.138-1.364-.415-.273-.277-.409-.718-.409-1.323V4.738c0-.617.14-1.062.419-1.332.279-.27.73-.406 1.354-.406h4.68c.69 0 1.288.041 1.793.124.506.083.96.242 1.36.478.341.197.644.447.906.75a3.262 3.262 0 0 1 .808 2.162c0 1.401-.722 2.426-2.167 3.075C15.05 10.175 16 11.315 16 13.01a3.756 3.756 0 0 1-2.296 3.504 6.1 6.1 0 0 1-1.517.377c-.571.073-1.238.11-2 .11zm-.217-6.217H7v4.087h3.069c1.977 0 2.965-.69 2.965-2.072 0-.707-.256-1.22-.768-1.537-.512-.319-1.277-.478-2.296-.478zM7 5.13v3.619h2.606c.729 0 1.292-.067 1.69-.2a1.6 1.6 0 0 0 .91-.765c.165-.267.247-.566.247-.897 0-.707-.26-1.176-.778-1.409-.519-.232-1.31-.348-2.375-.348H7z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_e886b4040e5b759290f4feaee6f794e70">درشت</span></button><button class="ck ck-button ck-off" type="button" tabindex="-1" aria-labelledby="ck-editor__aria-label_eb38da7282cdaa507ce1f58c816ebcc44" aria-pressed="false" data-cke-tooltip-text="کج (Ctrl+I)" data-cke-tooltip-position="s"><svg class="ck ck-icon ck-reset_all-excluded ck-icon_inherit-color ck-button__icon" viewBox="0 0 20 20"><path d="m9.586 14.633.021.004c-.036.335.095.655.393.962.082.083.173.15.274.201h1.474a.6.6 0 1 1 0 1.2H5.304a.6.6 0 0 1 0-1.2h1.15c.474-.07.809-.182 1.005-.334.157-.122.291-.32.404-.597l2.416-9.55a1.053 1.053 0 0 0-.281-.823 1.12 1.12 0 0 0-.442-.296H8.15a.6.6 0 0 1 0-1.2h6.443a.6.6 0 1 1 0 1.2h-1.195c-.376.056-.65.155-.823.296-.215.175-.423.439-.623.79l-2.366 9.347z"></path></svg><span class="ck ck-button__label" id="ck-editor__aria-label_eb38da7282cdaa507ce1f58c816ebcc44">کج</span></button></div></div></div></div></div><div class="ck ck-editor__main" role="presentation">
+                                            <div id="ck-content" onclick="text()" onkeydown="text()" class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" lang="fa" dir="rtl" role="textbox" aria-label="Editor editing area: main" contenteditable="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="btn btn-success" type="submit" value="ثبت نظر" />
+                        </form>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="title-comments">
+        نظرات کاربران
+    </h2>
+    <div class="container">
+        <button class="btn btn-success btn-add-comment" data-bs-toggle="modal" data-bs-target="#add-comment">
+            افزودن نظر
+            <i class="fa fa-plus"></i>
+        </button>
+        <br />
+        @if (comments.Count == 0)
+        {
+            <h4 class="not-comment">این محصول نظری ندارد</h4>
+        }
+        @foreach (var item in comments)
+        {
+            <div class="comment">
+                <div class="header-comment">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        //if (AuthorizationService.AuthorizeAsync(User, "AdminOnly").IsCompletedSuccessfully)
+                        userapp.UserApp userapp = new userapp.UserApp();
+                        userapp = await _UserManager.FindByNameAsync(User.Identity.Name);
+                        if (userapp.Id == item.Userid)
+                        {
+                            <form asp-action="DeleteComment" asp-controller="Comments" method="post">
+                                <input type="number" name="Commentid" value="@item.id" hidden />
+                                <input type="text" name="NameProduct" value="@Model.Name" hidden />
+                                <button class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        }
+                    }
+                    <span class="date-comment">
+                        @item.Date
+                    </span>
+                </div>
+                <hr />
+                <div class="content-comment">
+                    <p>
+                        @Html.Raw(item.TextComment)
+                    </p>
+                </div>
+
+            </div>
+        }
+    </div>
+    @section Scripts {
+        <script src="~/js/User/Product/Product.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script>
+
+        //$(".icon-zoom-img").click(function () {
+        //    $(".rocch").toggle();
+        //    $(".box-zoom-images").toggle();
+        //});
+            @*const a = setInterval(text, 2000);
+
+            const b = setInterval(Calculate(@Model.id), 5000);*@
+        function text() {
+            document.getElementById('Texteditor').value = document.getElementById('ck-content').innerHTML.toString();
+        }
+        </script>
+    }
+

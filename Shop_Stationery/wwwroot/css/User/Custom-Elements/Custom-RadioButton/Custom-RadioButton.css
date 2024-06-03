@@ -1,0 +1,10 @@
+﻿.Custom-RadioButton:checked:after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    top: 3.3px;
+    margin-right: 2.1px;
+    border-radius: 23px;
+    background-color: #f9a61a;
+}

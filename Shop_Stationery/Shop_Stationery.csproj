@@ -1,0 +1,105 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Shop_Stationery</RootNamespace>
+    <UserSecretsId>d28ca685-fec4-46a9-a91c-503b369d8231</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.rtl.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.rtl.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.rtl.min.css" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\css\bootstrap.rtl.min.css.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.bundle.js" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.bundle.js.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.bundle.min.js" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.bundle.min.js.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.esm.js" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.esm.js.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.esm.min.js" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.esm.min.js.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.js" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.js.map" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.min.js" />
+    <Content Remove="C:\Users\PQ\.nuget\packages\bootstrap\5.1.3\contentFiles\any\any\wwwroot\js\bootstrap.min.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\Admin\Layout-Admin\Layout-Admin.css" />
+    <None Include="wwwroot\Keys\Keys.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Kavenegar" Version="1.2.4" />
+    <PackageReference Include="MD.PersianDateTime.Standard" Version="2.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Stimulsoft.Reports.Web.NetCore" Version="2018.3.5" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="Zarinpal" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Classes\ClassesAdmin\" />
+    <Folder Include="Models\Services\ServicesAdmin\" />
+    <Folder Include="Models\Services\ServicesUser\" />
+    <Folder Include="wwwroot\Images\Img-Banners\Img-Banner-Layout\" />
+    <Folder Include="wwwroot\Images\Img-Products\" />
+    <Folder Include="wwwroot\Images\Img-Category\" />
+    <Folder Include="wwwroot\Factor\" />
+    <Folder Include="wwwroot\Images\Img-TrackingCode\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\bll\bll.csproj" />
+    <ProjectReference Include="..\dal\dal.csproj" />
+    <ProjectReference Include="..\Entity\Entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ZarinPal_MVC">
+      <HintPath>..\..\..\..\Desktop\a\TopLearn\TopLearn_ZarinPal_MVC\ZarinPal_MVC\ZarinPal_MVC\ZarinPal_MVC\bin\ZarinPal_MVC.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

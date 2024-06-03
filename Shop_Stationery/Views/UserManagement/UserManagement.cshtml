@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@section Style{
+}
+@using Entity;
+@{
+    List<Entity.UserApp.userapp.UserApp> userapps = new List<Entity.UserApp.userapp.UserApp>();
+    userapps = ViewBag.Users;
+}
+<div class="product-manage">
+    <h1 class="title">
+        مدیریت کاربرها
+    </h1>
+    <div class="body-product-manage">
+        <br />
+        <div class="table-box-product-manage">
+            <table class="table table-hover table-product-manage">
+                <thead>
+                    <tr>
+                        <th>...</th>
+                        <th>شماره</th>
+                        <th>ایمیل</th>
+                        <th>نام</th>
+                        <th>نام خانوادگی</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in userapps)
+                        {
+                            <tr>
+                                <td>
+                                    <form asp-action="InformationUser" method="post" style="display:inline">
+                                        <input type="text" name="NumberPhone" value="@item.UserName" hidden />
+                                        <button class="btn btn-outline-danger" type="submit">اطلاعات</button>
+                                    </form>
+                                </td>
+                                <td>@item.UserName</td>
+                                <td>@item.Email</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/Admin/ProductManagement/ProductManagement.js"></script>
+}

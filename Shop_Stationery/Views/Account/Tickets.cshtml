@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+
+@section Style {
+    <link href="~/css/User/Account/Tickets.css" rel="stylesheet" />
+    <link href="~/css/User/Account/Account.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="row">
+        <!-- right side-->
+        <partial name="_AccountPartial.cshtml" />
+        <!-- right side-->
+        <!-- left side-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="left-content ">
+                <div class="left-content-header">
+                    <h2>
+                        سفارش های من
+                    </h2>
+                </div>
+                <div class="left-content-body">
+                    <div class="tickets">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>عنوان</th>
+                                    <th>تاریخ</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="#" class="Custom-Tag-A-1">ثبت نشدن سفارش بعد از پرداخت</a></td>
+                                    <td>1384/12/33</td>
+                                    <td>بسته</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#" class="Custom-Tag-A-1">ثبت نشدن سفارش بعد از پرداخت</a></td>
+                                    <td>1384/12/33</td>
+                                    <td>بسته</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#" class="Custom-Tag-A-1">ثبت نشدن سفارش بعد از پرداخت</a></td>
+                                    <td>1384/12/33</td>
+                                    <td>بسته</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- left side-->
+        </div>
+    </div>
+</div>
+    @section Scripts{
+       
+    }

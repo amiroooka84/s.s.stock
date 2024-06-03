@@ -1,0 +1,57 @@
+﻿.category-manage{
+    height:100px;
+    width:100%;
+}
+
+.body-category-manage{
+    margin-top:40px;
+  
+    height:1000px;
+}
+
+.category-manage-options {
+    padding: 10px 10px;
+    height: 80px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    margin:20px 0;
+}
+
+.body-category-manage > hr{
+    margin:5px 20px;
+}
+.table-box-category-manage {
+    overflow-x: auto;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+}
+
+.table-category-manage {
+    text-align: center;
+    min-width: 100%;
+    width: 1200px;
+}
+
+.search-category-manage{
+    float:left;
+    border-radius:10px;
+
+}
+
+.add-category{
+    padding:40px;
+    border:1px solid #eaeaea;
+    border-radius:5px;
+}
+
+.div-btn-submit{
+    margin-top:30px;
+    text-align:center;
+}
+    .div-btn-submit > button {
+        padding: 9px;
+    }
+
+.Shops{
+    margin-top:20px;
+}

@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Entity
+@section Style{
+    <link href="~/css/Admin/OrderManagement/DetailsOrder.css" rel="stylesheet" />
+}
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using Microsoft.AspNetCore.Identity
+@using Entity.UserApp
+@inject UserManager<userapp.UserApp> _UserManager
+@{
+    Entity.UserApp.userapp.UserApp userApp = new Entity.UserApp.userapp.UserApp();
+    userApp = ViewBag.User;
+    var user = await _UserManager.FindByNameAsync(userApp.UserName);
+}
+<div class="details-order row">
+    <div class="col-12">
+        <h2 class="title-details-order">اطلاعات کاربر</h2>
+    </div>
+    <div class="deltails col-12 row">
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                تلفن :
+            </label>
+            <span>@userApp.UserName</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                نام و نام خانوادگی :
+            </label>
+            <span>
+                @{string fullname = userApp.FirstName + " " + userApp.LastName;}
+                @fullname
+            </span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                ایمیل :
+            </label>
+            <span>@userApp.Email</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                دسترسی :
+            </label>
+            @foreach (var item in await _UserManager.GetClaimsAsync(userApp))
+            {
+                if (item.Type == "AdminNumber" && item.Value == "1")
+                {
+                    <span>AdminFull</span>
+                    break;
+                }
+                else if (item.Type == "AdminNumber")
+                {
+                    <span>Admin</span>
+                    break;
+                }
+            }
+        </div>
+
+        <br />
+        <br />
+        <hr />
+        <form asp-action="ChengeRole" method="post">
+            <input type="text" name="NumberPhone" value="@userApp.UserName" hidden />
+            <input type="text" name="Role" value="Admin" hidden />
+            <button class="btn btn-success">ارتقا به ادمین</button>
+        </form>
+        <br />
+        <br />
+        <form asp-action="ChengeRole" method="post">
+            <input type="text" name="NumberPhone" value="@userApp.UserName" hidden />
+            <input type="text" name="Role" value="User" hidden />
+            <button class="btn btn-success">تنزل به کاربر</button>
+        </form>
+    </div>
+
+</div>

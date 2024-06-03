@@ -1,0 +1,267 @@
+﻿@{
+    ViewData["Title"] = "سبد خرید";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@section Style {
+    <link href="~/css/User/Shipping/Shipping.css" rel="stylesheet" />
+    <link href="~/css/User/Account/OrderSteps.css" rel="stylesheet" />
+}
+@using Entity;
+@using Microsoft.AspNetCore.Identity
+@using Entity.UserApp
+@inject UserManager<userapp.UserApp> _UserManager
+@{var user = await _UserManager.FindByNameAsync(User.Identity.Name); }
+@{
+    List<Entity.Address.Address> addresses = new List<Entity.Address.Address>();
+    addresses = ViewBag.Addresses;
+    List<Entity.Basket.Basket> baskets = new List<Entity.Basket.Basket>();
+    baskets = ViewBag.baskets;
+    List<Product> products = new List<Product>();
+    products = ViewBag.Products;
+    var PostingDay = ViewBag.PostingDay;
+    List<Entity.AttributeProduct.AttributeProduct> attributeProducts = new List<Entity.AttributeProduct.AttributeProduct>();
+    attributeProducts = ViewBag.AttributeProduct;
+    long priceall = ViewBag.priceall;
+    long Discountall = ViewBag.Discountall;
+}
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="ModalAddress">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">اضافه کردن آدرس جدید</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form asp-action="AddAddress" asp-controller="Account" method="post" class="form-modal-address" autocomplete="off">
+                        <label>لطفا آدرس مورد نظر را در این قسمت وارد نمایید</label>
+                        <textarea type="text" name="Address" class="Custom-Input-2" value="" placeholder="آدرس"></textarea>
+                        <button class="Custom-Button-1">
+                            اضافه کردن
+                        </button>
+                    </form>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="box-order-steps row">
+        <div class="col-4 order-steps-item">
+            <div class="active-step">
+                <i class="bi bi-check"></i>
+            </div>
+            1.سبد خرید
+        </div>
+        <div class="col-4 order-steps-item">
+            <div class="active-step">
+                <span class="line-step line-step-right" ></span>
+                <i class="bi bi-check"></i>
+                <span class="line-step line-step-left" style="background-color: #012453"></span>
+            </div>
+            2.پرداخت
+        </div>
+
+        <div class="col-4 order-steps-item">
+            <div>
+                <i class="bi bi-x"></i>
+            </div>
+            3.تکمیل
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div class="right-content">
+                <div class="left-content-header">
+                    <h2>
+                        جزئیات سفارش
+                    </h2>
+                </div>
+                <div class="left-content-body">
+                    <div class="row">
+                        @if (ViewBag.Error == false)
+                        {
+                            <div class="alert alert-warning" id="linksub">
+                                <h6>
+                                    خطایی رخ داده لطفا بعدا تلاش کنید
+                                </h6>
+                            </div>
+                        }
+                        @if (ViewBag.Warning == true)
+                        {
+                            <div class="alert alert-danger" id="linksub">
+                                <h6>
+                                    لطفا اطلاعات را به درستی کامل کنید
+                                </h6>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="addresses-shipping-box">
+                        <form class="form-select-address row" asp-action="submit" asp-controller="Checkout" method="post">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <label>نام*</label>
+                                <br />
+                                <input class="form-control" type="text" name="FirstName" value="" maxlength="50" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <label>نام خانوادگی*</label>
+                                <br />
+                                <input class="form-control" type="text" name="LastName" value="" maxlength="50" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <label>کشور/منطقه*</label>
+                                <br />
+                                <input class="form-control" readonly type="text" name="" value="ایران" maxlength="50" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <label>استان*</label>
+                                <br />
+                                @*<input class="form-control" type="text" name="Province" value="" maxlength="50" />*@
+                                <select id="Ostan" class="form-control" runat="server" name="Province" onchange="Func(this.value)">
+                                    <option value=""></option>
+                                    <option value="  ,آذرشهر ,اسکو ,اهر ,بستان‌آباد ,بناب ,تبریز ,جلفا ,چاراویماق ,سراب ,شبستر ,عجب‌شیر ,کلیبر ,مراغه ,مرند ,ملکان ,میانه ,ورزقان ,هریس ,هشترود">آذربایجان شرقی</option>
+                                    <option value="  ,ارومیه ,اشنویه ,بوکان ,پیرانشهر ,تکاب ,چالدران ,خوی ,سردشت ,سلماس ,شاهین‌دژ ,ماکو ,مهاباد ,میاندوآب ,نقده">آذربایجان غربی</option>
+                                    <option value="  ,اردبیل ,بیله‌سوار ,پارس‌آباد ,خلخال ,کوثر ,گِرمی ,مِشگین‌شهر ,نَمین ,نیر">اردبیل</option>
+                                    <option value="  ,آران و بیدگل ,اردستان ,اصفهان ,برخوار و میمه ,تیران و کرون ,چادگان ,خمینی‌شهر ,خوانسار ,سمیرم ,شهرضا ,سمیرم سفلی ,فریدن ,فریدون‌شهر ,فلاورجان ,کاشان ,گلپایگان ,لنجان ,مبارکه ,نائین ,نجف‌آباد ,نطنز">اصفهان</option>
+                                    <option value="  ,آبدانان ,ایلام ,ایوان ,دره‌شهر ,دهلران ,شیروان و چرداول ,مهران">ایلام</option>
+                                    <option value="  ,بوشهر ,تنگستان ,جم ,دشتستان ,دشتی,دیر ,دیلم ,کنگان ,گناوه">بوشهر</option>
+                                    <option value="  ,اسلام‌شهر ,پاکدشت ,تهران ,دماوند ,رباط‌کریم ,ری ,ساوجبلاغ ,شمیرانات ,شهریار ,فیروزکوه ,کرج ,نظرآباد ,ورامین">تهران</option>
+                                    <option value="  ,اردل ,بروجن ,شهرکرد ,فارسان ,کوهرنگ ,لردگان">چهارمحال و بختیاری</option>
+                                    <option value="  ,بیرجند ,درمیان ,سرایان ,سربیشه ,فردوس ,قائنات,نهبندان">خراسان جنوبی</option>
+                                    <option value="  ,بردسکن ,تایباد ,تربت جام ,تربت حیدریه ,چناران ,خلیل‌آباد ,خواف ,درگز ,رشتخوار ,سبزوار ,سرخس ,فریمان ,قوچان ,کاشمر ,کلات ,گناباد ,مشهد ,مه ولات ,نیشابور">خراسان رضوی</option>
+                                    <option value="  ,اسفراین ,بجنورد ,جاجرم ,شیروان ,فاروج ,مانه و سملقان">خراسان شمالی</option>
+                                    <option value="  ,آبادان ,امیدیه ,اندیمشک ,اهواز ,ایذه ,باغ‌ملک ,بندر ماهشهر ,بهبهان ,خرمشهر ,دزفول ,دشت آزادگان ,رامشیر ,رامهرمز ,شادگان ,شوش ,شوشتر ,گتوند ,لالی ,مسجد سلیمان,هندیجان ">خوزستان</option>
+                                    <option value="  ,ابهر ,ایجرود ,خدابنده ,خرمدره ,زنجان ,طارم ,ماه‌نشان">زنجان</option>
+                                    <option value="  ,دامغان ,سمنان ,شاهرود ,گرمسار ,مهدی‌شهر">سمنان</option>
+                                    <option value="  ,ایرانشهر ,چابهار ,خاش ,دلگان ,زابل ,زاهدان ,زهک ,سراوان ,سرباز ,کنارک ,نیک‌شهر">سیستان و بلوچستان</option>
+                                    <option value="  ,آباده ,ارسنجان ,استهبان ,اقلید ,بوانات ,پاسارگاد ,جهرم ,خرم‌بید ,خنج ,داراب ,زرین‌دشت ,سپیدان ,شیراز ,فراشبند ,فسا ,فیروزآباد ,قیر و کارزین ,کازرون ,لارستان ,لامِرد ,مرودشت ,ممسنی ,مهر ,نی‌ریز">فارس</option>
+                                    <option value="  ,آبیک ,البرز ,بوئین‌زهرا ,تاکستان ,قزوین">قزوین</option>
+                                    <option value="  ,قم">قم</option>
+                                    <option value="  ,بانه ,بیجار ,دیواندره ,سروآباد ,سقز ,سنندج ,قروه ,کامیاران ,مریوان">کردستان</option>
+                                    <option value="  ,بافت ,بردسیر ,بم ,جیرفت ,راور ,رفسنجان ,رودبار جنوب ,زرند ,سیرجان ,شهر بابک ,عنبرآباد ,قلعه گنج ,کرمان ,کوهبنان ,کهنوج ,منوجان">کرمان</option>
+                                    <option value="  ,اسلام‌آباد غرب ,پاوه ,ثلاث باباجانی ,جوانرود ,دالاهو ,روانسر ,سرپل ذهاب ,سنقر ,صحنه ,قصر شیرین ,کرمانشاه ,کنگاور ,گیلان غرب ,هرسین">کرمانشاه</option>
+                                    <option value="  ,بویراحمد ,بهمئی ,دنا ,کهگیلویه ,گچساران">کهگیلویه و بویراحمد</option>
+                                    <option value="  ,آزادشهر ,آق‌قلا ,بندر گز ,ترکمن ,رامیان ,علی‌آباد ,کردکوی ,کلاله ,گرگان ,گنبد کاووس ,مراوه‌تپه ,مینودشت">گلستان</option>
+                                    <option value="  ,آستارا ,آستانه اشرفیه ,اَملَش ,بندر انزلی ,رشت ,رضوانشهر ,رودبار ,رودسر ,سیاهکل ,شَفت ,صومعه‌سرا ,طوالش ,فومَن ,لاهیجان ,لنگرود ,ماسال">گیلان</option>
+                                    <option value="  ,ازنا ,الیگودرز ,بروجرد ,پل‌دختر ,خرم‌آباد ,دورود ,دلفان ,سلسله ,کوهدشت">لرستان</option>
+                                    <option value="  ,آمل ,بابل ,بابلسر ,بهشهر ,تنکابن ,جویبار ,چالوس ,رامسر ,ساری ,سوادکوه ,قائم‌شهر ,گلوگاه ,محمودآباد ,نکا ,نور ,نوشهر">مازندران</option>
+                                    <option value="  ,آشتیان ,اراک ,تفرش ,خمین ,دلیجان ,زرندیه ,ساوه ,شازند ,کمیجان ,محلات">مرکزی</option>
+                                    <option value="  ,ابوموسی ,بستک ,بندر عباس ,بندر لنگه ,جاسک ,حاجی‌آباد ,شهرستان خمیر ,رودان  ,قشم ,گاوبندی ,میناب">هرمزگان</option>
+                                    <option value="  ,اسدآباد ,بهار ,تویسرکان ,رزن ,کبودرآهنگ ,ملایر ,نهاوند ,همدان">همدان</option>
+                                    <option value="  ,ابرکوه ,اردکان ,بافق ,تفت ,خاتم ,صدوق ,طبس ,مهریز ,مِیبُد ,یزد">یزد</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <label>شهر*</label>
+                                <br />
+                                @*<input class="form-control" type="text" name="City" value="" maxlength="50" />*@
+                                <select id="Shahrestan" class="form-control" name="City" runat="server">
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <label>آدرس*</label>
+                                <br />
+                                <input class="form-control" type="text" name="Address" value="" placeholder="پلاک خانه و نام خیابان" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <label>تلفن گیرنده*(کیبورد انگلیسی)</label>
+                                <br />
+                                <input class="form-control" type="text" name="PhoneNumber" value="" />
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    <hr />
+                    <h5><b>محصولات شما</b></h5>
+                    <br />
+                    <div>
+                        <div class="Current-order-img-box">
+                            <table class="Current-order-img-table">
+                                <tr>
+                                    @foreach (var item in products)
+                                    {
+                                        <td>
+                                            <a href="/Product/@item.Name"><img class="Current-order-img" src="@item.ImagePath" alt="@item.Name" />
+                                            </a>
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <div class="left-content ">
+                <div class="post-cost-box">
+                    <h4>سفارش شما</h4>
+                </div>
+
+                <div class="post-cost-box">
+                    <div class="post-cost-box">
+                        <span>قیمت کالاها (@baskets.Count)</span>
+                        <span class="post-cost"> @priceall.ToString("n0") <span class="toman-price">تومان</span></span>
+                    </div>
+                    <div class="post-cost-box">
+                        <span>هزینه ارسال:</span>
+                        <span class="post-cost">رایگان</span>
+                    </div>
+                    <div>
+                        <span class="">سود شما از خرید:</span>
+                        <span class="post-cost text-danger"> @Discountall.ToString("n0") <span class="toman-price">تومان</span></span>
+                    </div>
+                    <div>
+                        <span>مبلغ قابل پرداخت:</span>
+                        <span class="post-cost text-success"><span class="ppp">@priceall.ToString("n0")</span> <span class="toman-price">تومان</span></span>
+                    </div>
+                </div>
+                <br />
+                <div class="post-cost-box">
+                    <div>
+                        <img src="~/assets_templates/template1/images/ZarinPal.png" width="80px" />
+                        <span>پرداخت امن زرین پال</span>
+                    </div>
+                </div>
+                <hr />
+                <button onclick="GoingToPort()" class="button-Pay Custom-Button-2">
+                    پرداخت
+                </button>
+            </div>
+        </div>
+        <!-- left side-->
+        <!-- left side-->
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/User/Shipping/Shipping.js"></script>
+    <script>
+        function Func(Shahrestanha) {
+            var _Shahrestan = document.getElementById("Shahrestan");
+            _Shahrestan.options.length = 0;
+            if (Shahrestanha != "") {
+                var arr = Shahrestanha.split(",");
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i] != "") {
+                        _Shahrestan.options[_Shahrestan.options.length] = new Option(arr[i], arr[i]);
+                    }
+                }
+            }
+        }
+
+
+
+    </script>
+}

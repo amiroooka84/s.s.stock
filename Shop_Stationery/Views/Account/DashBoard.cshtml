@@ -1,0 +1,168 @@
+﻿@{
+    ViewData["Title"] = "داشبورد";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+
+@section Style {
+    <link href="~/css/User/Account/DashBoard.css" rel="stylesheet" />
+    <link href="~/css/User/Account/Account.css" rel="stylesheet" />
+}
+@using Microsoft.AspNetCore.Identity
+@using Entity.UserApp
+@using System.Linq;
+@inject UserManager<userapp.UserApp> _UserManager
+@{var user = await _UserManager.FindByNameAsync(User.Identity.Name); }
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal" id="ModalAddress">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">اضافه کردن آدرس جدید</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form asp-action="AddAddress" asp-controller="Account" method="post" class="form-modal-address" autocomplete="off">
+                        <label>لطفا آدرس مورد نظر را در این قسمت وارد نمایید</label>
+                        <textarea type="text" name="Address" class="Custom-Input-2" value="" placeholder="آدرس"></textarea>
+                        <button class="Custom-Button-1">
+                            اضافه کردن
+                        </button>
+                    </form>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- right side-->
+        <partial name="_AccountPartial.cshtml" />
+        <!-- right side-->
+        <!-- left side-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="left-content">
+                <div class="left-content-header">
+                    <h2>
+                        داشبورد
+                    </h2>
+                </div>
+                <div class="left-content-body">
+                    @if (TempData["ResultDeleteAddress"] != null)
+                    {
+                        if (TempData["ResultDeleteAddress"].ToString() == "true")
+                        {
+                            <div class="alert alert-success">
+                                <h5>
+                                    آدرس حذف شد
+                                </h5>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">
+                                <h5>
+                                    آدرس حذف نشد
+                                </h5>
+                            </div>
+                        }
+                    }
+                    @if (TempData["ResultAddAddress"] != null)
+                    {
+                        if (TempData["ResultAddAddress"].ToString() == "true")
+                        {
+                            <div class="alert alert-success">
+                                <h5>
+                                    آدرس اضافه شد
+                                </h5>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">
+                                <h5>
+                                    آدرس اضافه نشد
+                                </h5>
+                            </div>
+                        }
+                    }
+
+                    @if (user.FirstName == null || user.LastName == null || user.FirstName == "" || user.LastName == "")
+                    {
+                        <div class="alert alert-primary">
+                            <h5>
+                                <a href="@Url.Action("EditProfile" , "Account")"> لطفا اطلاعات را تکمیل کنید</a>
+                            </h5>
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label>
+                                <i class="bi bi-telephone-fill"></i>
+                                تلفن: <span class="font-BKoodkBd">@user.UserName</span>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label>
+                                <i class="bi bi-person-fill"></i>
+                                @{ string fullName = user.FirstName + " " + user.LastName;}
+                                نام و نام خانوادگی: @fullName
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label>
+                                <i class="bi bi-envelope-fill"></i>
+                                ایمیل: @user.Email
+                            </label>
+                        </div>
+
+                    </div>
+                    @*<button class="btn btn-outline-success btn-add-address" type="button" data-bs-toggle="modal" data-bs-target="#ModalAddress">
+                        اضافه کردن آدرس جدید  <i class="fa fa-plus"></i>
+                    </button>
+                    <div class="row">
+                        <div class="div-address">
+                            <table class="table-address table">
+                                <tr>
+                                    <th>...</th>
+                                    <th>آدرس</th>
+                                </tr>
+                                @{
+                                    List<Entity.Address.Address> addresses = new List<Entity.Address.Address>();
+                                    addresses = ViewBag.Addresses;
+                                    foreach (var item in addresses)
+                                    {
+                                        <tr class="body-table-address">
+                                            <td>
+                                                <form asp-action="DeleteAddress" asp-controller="Account" method="post">
+                                                    <input type="number" name="number" value="@item.id" style="display:none" />
+                                                    <button class="btn btn-outline-danger">
+                                                        <i class="bi bi-trash3-fill"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td class="fild-address">
+                                                @item.address
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </table>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        <!-- left side-->
+    </div>
+</div>

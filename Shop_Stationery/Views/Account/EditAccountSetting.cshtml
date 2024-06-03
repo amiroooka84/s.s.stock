@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+
+@section Style {
+
+    <link href="~/css/User/Account/EditAccountSetting.css" rel="stylesheet" />
+    <link href="~/css/User/Account/Account.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="row">
+        <!-- right side-->
+        <partial name="_AccountPartial.cshtml" />
+        <!-- right side-->
+        <!-- left side-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="left-content ">
+                <div class="left-content-header">
+                    <h2>
+                        ویرایش تنظیمات حساب
+                    </h2>
+                </div>
+                <div class="left-content-body">
+                    <form action="/" method="post" class="row" autocomplete="off">
+                        <div class="radio-select">
+                            <span class=""><i class="bi bi-envelope-fill"></i> دریافت خبرنامه از طریق ایمیل</span>
+                            <div class="switch_box">
+                                <input type="checkbox" class="switch_1">
+                            </div>
+                        </div>
+                        <div class="radio-select">
+                            <span class=""><i class="bi bi-chat-left-text-fill"></i> دریافت اخبار و اطلاعیه های جشنواره ها بصورت پیامکی</span>
+                            <div class="switch_box">
+                                <input type="checkbox" class="switch_1">
+                            </div>
+                        </div>
+                        <!--///////////////////////////-->
+                        <button class="Custom-Button-2 col-2 btn-submit-edit" type="submit">
+                            ویرایش
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- left side-->
+    </div>
+
+</div>

@@ -1,0 +1,59 @@
+﻿.section-Account {
+    border: 1px solid #f4f4f4;
+    border-radius: 15px;
+    box-shadow: 5px 10px 10px #dedede;
+    font-size: 14px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 20px;
+}
+.header-section {
+    height: 120px;
+    background-color: white ;
+}
+.body-section{
+    margin:15px 0;
+}
+.body-section  i{
+    color:#012453
+}
+.body-section > ul {
+    margin-right: 40px;
+    color: #012453;
+}
+        .body-section > ul > li {
+            padding: 5px 0;
+        }
+.header-section > .img-user {
+    text-align:center;
+    margin-top:13px;
+}
+.header-section > .img-user > div {
+    border-radius:100px;
+    width:80px;
+    height:80px;
+    background-color:#012453;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:10px
+}
+.header-section > .logout-header{
+    height:1px;
+}
+
+.box-instagram-section {
+    text-align: center;
+    margin: 10px 0;
+    padding: 30px 0;
+    background-color: #dedede;
+}
+
+.box-instagram-section > a > i {
+    font-size: 30px;
+    color: black;
+    margin: 0 10px;
+}
+
+    .box-instagram-section > a > span {
+        color: black;
+    }

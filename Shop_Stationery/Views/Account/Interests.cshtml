@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "علاقه مندی ها";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@section Style {
+    <link href="~/css/User/Account/Basket.css" rel="stylesheet" />
+    <link href="~/css/User/Account/Account.css" rel="stylesheet" />
+}
+@{
+    List<Entity.Product> products = new List<Entity.Product>();
+    products = ViewBag.Products;
+    List<Entity.Interests.Interests> interests = new List<Entity.Interests.Interests>();
+    interests = ViewBag.Interests;
+}
+<div class="container">
+    <div class="row">
+        <!-- right side-->
+        <partial name="_AccountPartial.cshtml" />
+        <!-- right side-->
+        <!-- left side-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="left-content ">
+                <div class="left-content-header">
+                    <h2>
+                        علاقه مندی ها
+                    </h2>
+                </div>
+                @if (interests.Count == 0)
+                {
+                    <h2 class="is-empty-basket">علاقه مندی ها خالی است</h2>
+                }
+                else
+                {
+                    <div class="left-content-body">
+                        <div class="">
+                            <div class="basket">
+                                @foreach (var item in interests)
+                                {
+                                    @foreach (var product in products)
+                                    {
+                                        if (product.id == item.Productid)
+                                        {
+                                            <div class="basket-item row">
+                                                <form class="form-del-interests" asp-action="DeleteInterests" asp-controller="Account" method="post">
+                                                    <input type="number" name="productid" hidden value="@product.id" />
+                                                    <button class="Custom-Button-2" type="submit">
+                                                        <i class="fa fa-close"></i>
+                                                    </button>
+                                                </form>
+                                                <a href="/Product/@product.Name" class="basket-img-item col-4">
+                                                    <img src="@product.ImagePath" alt="@product.Name" />
+                                                </a>
+
+                                                <div class="basket-body-item col-8">
+                                                    <h6>
+                                                        <a href="/Product/@product.Name" class="Custom-Tag-A-1">@product.Name</a>
+                                                    </h6>
+                                                    <div>
+                                                        <i class="bi bi-upc-scan"></i>
+                                                        شناسه کالا:
+                                                        @product.Code
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            break;
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+        <!-- left side-->
+    </div>
+</div>

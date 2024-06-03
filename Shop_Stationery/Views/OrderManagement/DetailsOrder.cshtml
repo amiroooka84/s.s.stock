@@ -1,0 +1,145 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+
+@section Style{
+    <link href="~/css/Admin/OrderManagement/DetailsOrder.css" rel="stylesheet" />
+}
+@using Entity.Order;
+@{
+    Entity.Order.Order order = new Entity.Order.Order();
+    order = ViewBag.Order;
+    List<Entity.Order.ProductOrder> productOrder = new List<Entity.Order.ProductOrder>();
+    productOrder = ViewBag.ProductOrders;
+}
+<div class="details-order row">
+    <div class="col-12 d-print-none">
+        <h2 class="title-details-order">جزئیات سفارش</h2>
+    </div>
+    <div class="deltails col-12 row">
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                کد سفارش:
+            </label>
+            <span>@order.Code</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                تاریخ سفارش:
+            </label>
+            <span>@order.Date</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                نام و نام خانوادگی:
+            </label>
+            <span>@order.FullName</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                تلفن:
+            </label>
+            <span>@order.PhoneNumber</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                آدرس:
+            </label>
+            @order.Address
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                وضعیت:
+            </label>
+            @if (order.State == Order.state.Processing)
+            {
+                <span>درحال پردازش</span>
+            }
+            else if (order.State == Order.state.Delivered)
+            {
+                <span>تکمیل شده</span>
+            }
+            else if (order.State == Order.state.Canceled)
+            {
+                <span>لغو شده</span>
+            }
+        </div>
+        <br />
+        <div class="col-12 col-md-6 col-lg-6">
+            <label>
+                وضعیت پرداخت:
+            </label>
+            @if (order.IsFinally == false)
+            {
+                <span>پرداخت نشده</span>
+            }
+            else if (order.IsFinally == true)
+            {
+                <span>پرداخت شده</span>
+            }
+        </div>
+        <br />
+        <br />
+        <hr />
+        <div class="col-12">
+            <label>
+                تخفیف :
+            </label>
+            <span>@order.Discount.ToString("n0")</span>
+        </div>
+        <div class="col-12">
+            <label>
+                مبلغ پرداختی :
+            </label>
+            <span>
+                <span>@order.Price.ToString("n0")</span>
+            </span>
+        </div>
+        <form class="d-print-none" asp-action="UpdateState" asp-controller="OrderManagement" method="post">
+            <input type="number" name="OrderId" value="@order.id" hidden />
+            <select name="State">
+                <option value="0">درحال پردازش</option>
+                <option value="2">لغو شده</option>
+                <option value="3">تکمیل شده</option>
+            </select>
+            <button class="btn btn-success">تعییر وضعیت</button>
+        </form>
+    </div>
+    <div class="details-product-order col-12 row">
+        <table class="table table-hover table-details-order">
+            <thead>
+                <tr>
+                    <th>نام کالا</th>
+                    <th>کد کالا</th>
+                    <th>تعداد</th>
+                    <th>قیمت</th>
+                    <th>تخفیف</th>
+                    <th>قیمت کل</th>
+                    <th>عکس</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in productOrder)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Code</td>
+                        <td>@item.Number</td>
+                        <td>@item.Price.ToString("n0")</td>
+                        <td>@item.Discount.ToString("n0")</td>
+                        <td>
+                            @{ 
+                                long p1 = item.Price / 100 * item.Discount;
+                                long priceproduct = item.Price - p1;
+                            }
+                            @priceproduct.ToString("n0")
+                        </td>
+                        <td><img class="details-img-product" src="@item.ImagePath" alt="@item.Name" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @*<a class="btn btn-info" asp-action="PrintPage">PrintPage</a>*@
+    </div>
+</div>

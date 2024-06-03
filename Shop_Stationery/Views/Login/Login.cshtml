@@ -1,0 +1,31 @@
+﻿@model Shop_Stationery.Models.ViewModelUser.ViewModelLogin.ViewModelLoginPassword
+@{
+    ViewData["Title"] = "ورود و ثبت نام";
+    Layout = "~/Views/Shared/_Layout_LoginAndSignup.cshtml";
+}
+
+
+<h2 class="title-login">ورود</h2>
+<br />
+<form asp-action="Login" asp-controller="Login" method="post">
+    <label class="label-top-input">رمز عبور را وارد کنید</label>
+    <input asp-for="password" type="password" maxlength="100" name="Password" value="" class="Custom-Input-1" placeholder="رمز عبور" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <br />
+    <button type="submit" class="Custom-Button-2">
+        تایید
+    </button>
+</form>
+<div class="forgot">
+    <a href="@Url.Action("LoginWithCode" , "Login")" class="Custom-Tag-A-1">ورود با رمز یک بار مصرف</a>
+    <i class="fa fa-lock"></i>
+    <br />
+    <a href="/ForgotPasswordPhoneNumber" class="Custom-Tag-A-1">فراموشی کلمه عبور</a>
+    <i class="fa fa-lock"></i>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

@@ -1,0 +1,51 @@
+﻿.body-page-manage{
+    margin-top:50px;
+}
+
+.Results-create-file{
+    color:green;
+    text-align:center;
+}
+
+.page-manage-title-table {
+    text-align: center;
+}
+
+.table-box-page-manage > .table-box-banner-Layout > table {
+    text-align: center;
+    width: 1000px;
+    min-width:100%;
+}
+
+.table-box-banner-Layout{
+    overflow:auto;
+}
+
+.back-progressBar{
+    text-align:center;
+    visibility:hidden;
+}
+.progressBar{
+    border:1px solid #e4e4e4;
+    border-radius:5px;
+    width:150px;
+    height:25px;
+    margin: 0 auto;
+}
+.value-progressBar {
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: green;
+    height: 23px;
+    width:1%;
+    color:white;
+}
+.form-add-banner{
+    text-align:center;
+}
+.form-add-banner > input{
+    width:250px;
+}
+    .form-add-banner > .button-submit-file {
+        padding:7px 50px;
+    }

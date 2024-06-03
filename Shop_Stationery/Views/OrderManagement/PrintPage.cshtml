@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+@using Stimulsoft.Report.Mvc
+
+@{
+    ViewData["Title"] = "Print";
+}
+
+@Html.StiNetCoreViewer(new StiNetCoreViewerOptions()
+{
+    Actions =
+    {
+        
+        GetReport = "Print",
+        ViewerEvent = "ViewerEvent"
+    }
+})

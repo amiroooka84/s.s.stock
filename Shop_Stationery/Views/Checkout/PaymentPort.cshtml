@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "سبد خرید";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@section Style{
+
+}
+<div class="container">
+    <h1>@ViewBag.Error</h1>
+    <h1>@ViewBag.price</h1>
+    <h1>@ViewBag.Discount</h1>
+    <div>
+        <form action="/Checkout/OrderRegistration" method="post">
+            <input hidden type="text" name="ResultPort" value="true" />
+            <button type="submit" class="btn btn-success">موفق بودن پرداخت</button>
+        </form>
+    </div>
+    <br />
+    <div>
+        <form action="/Checkout/OrderRegistration" method="post">
+            <input hidden type="text" name="ResultPort" value="false" />
+            <button type="submit" class="btn btn-danger">ناموفق بودن پرداخت</button>
+        </form>
+    </div>
+</div>
+

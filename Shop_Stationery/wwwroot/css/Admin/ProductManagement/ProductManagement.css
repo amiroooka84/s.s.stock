@@ -1,0 +1,67 @@
+﻿.product-manage{
+    height:100px;
+    width:100%;
+}
+
+.body-product-manage{
+    margin-top:40px;
+  
+    height:1000px;
+}
+
+.product-manage-options {
+    padding: 10px 10px;
+    height: 80px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    margin:20px 0;
+}
+
+.body-product-manage > hr{
+    margin:5px 20px;
+}
+.table-box-product-manage {
+    overflow-x: auto;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+}
+
+.table-product-manage {
+    text-align: center;
+    min-width: 100%;
+    width: 1200px;
+}
+
+.search-product-manage{
+    float:left;
+    border-radius:10px;
+
+}
+
+.add-Product{
+    padding:40px;
+    border:1px solid #eaeaea;
+    border-radius:5px;
+}
+
+.div-btn-submit{
+    margin-top:30px;
+    text-align:center;
+}
+    .div-btn-submit > button {
+        padding: 9px;
+    }
+
+.Shops{
+    margin-top:20px;
+}
+.box-inputs-attribute > div {
+    display: inline
+}
+.box-inputs-attribute > input{
+    display:inline
+}
+
+.open-box-select-attribute{
+    cursor:pointer;
+}

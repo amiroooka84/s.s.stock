@@ -1,0 +1,32 @@
+﻿.title-details-order{
+    text-align:center;
+   margin:50px 0;
+}
+.deltails {
+    margin-top:50px;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+}
+.details-order{
+    padding:10px
+}
+.deltails > div{
+    padding:5px 10px
+}
+.deltails > div > span {
+    float:left
+}
+.details-product-order  {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    overflow:auto
+}
+.details-img-product{
+    width:60px;
+}
+.table-details-order{
+    text-align:center
+}

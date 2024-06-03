@@ -1,0 +1,119 @@
+﻿/* Style the tab */
+
+.tab {
+    overflow: hidden;
+    border-bottom:2px solid #adadad;  
+    text-align:right
+}
+
+    /* Style the buttons that are used to open the tab content */
+    .tab > button {
+        background-color: inherit;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size:16px;
+    }
+    @media (max-width:500px){
+        .tab > button {
+            font-size: 12px;
+        }
+    }
+@media (max-width:380px) {
+    .tab > button {
+        font-size: 11px;
+    }
+}
+
+.is-empty-order{
+    text-align:center;
+    height:100px;
+    justify-content:center;
+    align-items:center;
+    display:flex;
+}
+.left-content-body {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    /*background-color: #ddd;*/
+    color: #f9a61a;
+}
+
+        /* Create an active/current tablink class */
+.tab button.active {
+    background-color: #f9a61a;
+    color: white;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px;
+    border-top: none;
+}
+.Current-title{
+    margin:15px 10px 0 0 ;
+}
+.order{
+    margin:10px 0px;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    position:relative;
+}
+.Current-body > .order > div > p {
+    margin: 5px 0;
+}
+.Current-body{
+    color:#808080
+}
+.number-item-order {
+    position: absolute;
+    border-radius: 100px;
+    background-color: #f9a61a;
+    color: white;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    top: -5px;
+    right: -5px;
+}
+.Current-order-img-box{
+    overflow:auto;
+}
+    .Current-order-img-box::-webkit-scrollbar {
+        background-color: #ededed;
+        border-radius: 10px;
+        width: 20px;
+        cursor: help;
+        height: 6px;
+    }
+
+    .Current-order-img-box::-webkit-scrollbar-thumb {
+        background-color: #9f9f9f;
+        border-radius: 10px;
+        border: 1px solid #ededed;
+    }
+.Current-order-img {
+    border-left: 1px solid #e1e1e1;
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+}
+.Current-footer{
+
+}
+    .Current-footer-price > *{
+        text-align:left;
+        margin:10px; 
+    }
+.Current-footer > .Current-footer-more > * {
+    text-align: left;
+    margin: 10px;
+}

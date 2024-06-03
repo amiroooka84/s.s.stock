@@ -1,0 +1,32 @@
+﻿.Custom-Tag-A-1 {
+    color: black !important;
+    font-family: 'Vazir FD-WOL', sans-serif !important;
+    text-decoration: none !important;
+}
+
+    .Custom-Tag-A-1:hover {
+        color: #f9a61a !important;
+    }
+/*///////////////////////*/
+
+.Custom-Tag-A-2 {
+    color: black !important;
+    font-family: 'Vazir FD-WOL', sans-serif !important;
+    text-decoration: none !important;
+}
+
+    .Custom-Tag-A-2:hover {
+        color: #808080 !important;
+    }
+
+/*///////////////////////*/
+
+.Custom-Tag-A-3 {
+    color: #f9a61a !important;
+    font-family: 'Vazir FD-WOL', sans-serif !important;
+    text-decoration: none !important;
+}
+
+    .Custom-Tag-A-3:hover {
+        color: #808080 !important;
+    }

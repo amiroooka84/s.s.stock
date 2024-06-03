@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "ویرایش حساب";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@model Shop_Stationery.Models.ViewModelUser.ViewModelAccount.ViewModelEditProfile
+@section Style {
+
+    <link href="~/css/User/Account/EditProfile.css" rel="stylesheet" />
+    <link href="~/css/User/Account/Account.css" rel="stylesheet" />
+}
+@using Microsoft.AspNetCore.Identity
+@using Entity.UserApp
+@inject UserManager<userapp.UserApp> _UserManager
+@{var user = await _UserManager.FindByNameAsync(User.Identity.Name); }
+<div class="container">
+    <div class="row">
+        <!-- right side-->
+        <partial name="_AccountPartial.cshtml" />
+        <!-- right side-->
+        <!-- left side-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="left-content ">
+                <div class="left-content-header">
+                    <h2>
+                        ویرایش حساب
+                    </h2>
+                </div>
+                <div class="left-content-body">
+                    @if (TempData["ResultUpdate"] != null)
+                    {
+                        if (TempData["ResultUpdate"].ToString() == "true")
+                        {
+                            <div class="alert alert-success">
+                                <h5>
+                                    ویرایش انجام شد
+                                </h5>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger">
+                                <h5>
+                                    ویرایش انجام نشد
+                                </h5>
+                            </div>
+                        }
+                    }
+
+                    <form Asp-action="EditProfile" asp-controller="Account" method="post" class="row" autocomplete="off">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label>
+                                <i class="bi bi-telephone-fill"></i>
+                                تلفن
+                            </label>
+                            <span class="text-danger">
+                                تلفن قابل تغییر نمی باشد
+                            </span>
+                            <input readonly value="@user.UserName" class="Custom-Input-2 font-BKoodkBd col-12" />
+                        </div>
+                        <!--///////////////////////////-->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label><i class="bi bi-person-fill"></i> نام*</label>
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <input asp-for="FirstName" type="text" name="FirstName" value="@user.FirstName" class="Custom-Input-2 col-12" placeholder="@user.FirstName" />
+                        </div>
+                        <!--///////////////////////////-->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label><i class="bi bi-person-fill"></i> نام خانوادگی*</label>
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                            <input asp-for="LastName" type="text" name="LastName" value="@user.LastName" class="Custom-Input-2 col-12" placeholder="@user.LastName" />
+                        </div>
+                        <!--///////////////////////////-->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label><i class="bi bi-envelope-fill"></i> ایمیل جهت ارسال پیشنهادات</label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input asp-for="Email" type="text" name="Email" value="@ViewData["email"]" class="Custom-Input-2 col-12" placeholder="@user.Email" />
+                        </div>
+                        <!--///////////////////////////-->
+                        <button class="Custom-Button-2 col-2 btn-submit-edit" type="submit">
+                            ویرایش
+                        </button>
+                        <div asp-validation-summary="ModelOnly" class="text-danger error d-inline"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- left side-->
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

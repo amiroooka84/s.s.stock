@@ -1,0 +1,387 @@
+﻿@{
+    ViewData["Title"] = "سفارش های من";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+
+@section Style {
+    <link href="~/css/User/Account/Order.css" rel="stylesheet" />
+    <link href="~/css/User/Account/Account.css" rel="stylesheet" />
+}
+@using Entity;
+@{
+    List<Entity.Order.Order> orders = new List<Entity.Order.Order>();
+    orders = ViewBag.Orders;
+    List<Entity.Order.ProductOrder> productOrders = new List<Entity.Order.ProductOrder>();
+    productOrders = ViewBag.ProductOrders;
+}
+<div class="container">
+    <div class="row">
+        <!-- right side-->
+        <partial name="_AccountPartial.cshtml" />
+        <!-- right side-->
+        <!-- left side-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="left-content ">
+                <div class="left-content-header">
+                    <h2>
+                        سفارش های من
+                    </h2>
+                </div>
+
+                <div class="left-content-body">
+                    @if (ViewBag.ResultOrder == "ok")
+                    {
+                        <div class="alert alert-success">
+                            <h3>
+                                سفارش ثبت شد
+                            </h3>
+                        </div>
+                    }
+                    else if (ViewBag.ResultOrder == "nok")
+                    {
+                        <div class="alert alert-success">
+                            <h3>
+                                سفارش ثبت نشد
+                            </h3>
+                        </div>
+                    }
+                    <div class="tab">
+                        <button class="tablinks active" onclick="OpenOrder(event, 'Current')"><i class="bi bi-hourglass-split"></i> درحال پردازش</button>
+                        <button class="tablinks" onclick="OpenOrder(event, 'Delivered')"><i class="bi bi-check-circle-fill"></i> تکمیل شده</button>
+                        <button class="tablinks" onclick="OpenOrder(event, 'Canceled')"><i class="bi bi-x-circle-fill"></i> لغو شده</button>
+                        <button class="tablinks" onclick="OpenOrder(event, 'NotFinally')"><i class="bi bi-x-circle-fill"></i> پرداخت نشده</button>
+                    </div>
+                    <!-- Tab content -->
+                    <div id="Current" class="tabcontent active" style="display:block;">
+                        <div class="Current-body">
+                            @{
+                                int NumberProcessing = 0;
+                            }
+                            @foreach (var order in orders)
+                            {
+                                if (order.State == Entity.Order.Order.state.Processing && order.IsFinally == true)
+                                {
+
+                                    <div class="order">
+                                        <span class="number-item-order">
+                                            @{
+                                                NumberProcessing++;
+                                            }
+                                            @NumberProcessing
+                                        </span>
+                                        <div class="row">
+                                            <p class="col-lg-4 col-sm-12">
+                                                کد سفارش: @order.Code
+                                            </p>
+                                            @*<p class="col-lg-4 col-sm-12">
+                                                شماره تراکنش: @order.RefId
+                                            </p>*@
+                                            <p class="col-lg-4 col-sm-12">تاریخ ثبت سفارش: @order.Date</p>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <p class="col-lg-6 col-sm-12">
+                                                تحویل گیرنده: @order.FullName
+                                            </p>
+                                            <p class="col-lg-6 col-sm-12">
+                                                شماره موبایل: @order.PhoneNumber
+                                            </p>
+                                            <p class="col-lg-6 col-sm-12">
+                                                آدرس: @order.Address
+                                            </p>
+                                        </div>
+                                        <div class="Current-footer-price">
+                                            <h6 class="text-danger">
+                                                @order.Discount.ToString("n0") تومان
+                                            </h6>
+                                            <h6 class="text-success">
+                                                @order.Price.ToString("n0") تومان
+                                            </h6>
+                                        </div>
+                                        <hr />
+                                        <div class="Current-order-img-box">
+                                            <table class="Current-order-img-table">
+                                                <tr>
+                                                    @foreach (var ProductOrder in productOrders)
+                                                    {
+                                                        if (ProductOrder.OrderId == order.id)
+                                                        {
+                                                            <td><a href="/Product/@ProductOrder.Name"><img class="Current-order-img" src="@ProductOrder.ImagePath" alt="@ProductOrder.Name" /></a></td>
+                                                        }
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <hr />
+                                        <div class="Current-footer">
+                                            <div class="Current-footer-more">
+                                                <h5>
+                                                    <a href="#" class="Custom-Tag-A-1">جزِئیات <i class="bi bi-arrow-left-circle-fill"></i> </a>
+                                                </h5>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            @{
+                                if (NumberProcessing == 0)
+                                {
+                                    <h4 class="is-empty-order">
+                                        سفارشی موجود نمی باشد
+                                    </h4>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div id="Delivered" class="tabcontent">
+                        <br />
+                        @{
+                            int NumberDelivered = 0;
+                        }
+                        @foreach (var order in orders)
+                        {
+                            if (order.State == Entity.Order.Order.state.Delivered && order.IsFinally == true)
+                            {
+                                <div class="order">
+                                    <span class="number-item-order">
+                                        @{
+                                            NumberDelivered++;
+                                        }
+                                        @NumberDelivered
+                                    </span>
+                                    <div class="row">
+                                        <p class="col-lg-4 col-sm-12">
+                                            کد سفارش: @order.Code
+                                        </p>
+                                        @*<p class="col-lg-4 col-sm-12">
+                                            شماره تراکنش: @order.RefId
+                                        </p>*@
+                                        <p class="col-lg-4 col-sm-12">تاریخ ثبت سفارش: @order.Date</p>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <p class="col-lg-6 col-sm-12">
+                                            تحویل گیرنده: @order.FullName
+                                        </p>
+                                        <p class="col-lg-6 col-sm-12">
+                                            شماره موبایل: @order.PhoneNumber
+                                        </p>
+                                        <p class="col-lg-6 col-sm-12">
+                                            آدرس: @order.Address
+                                        </p>
+                                    </div>
+                                    <div class="Current-footer-price">
+                                        <h6 class="text-danger">
+                                            @order.Discount.ToString("n0") تومان
+                                        </h6>
+                                        <h6 class="text-success">
+                                            @order.Price.ToString("n0") تومان
+                                        </h6>
+                                    </div>
+                                    <hr />
+                                    <div class="Current-order-img-box">
+                                        <table class="Current-order-img-table">
+                                            <tr>
+                                                @foreach (var ProductOrder in productOrders)
+                                                {
+                                                    if (ProductOrder.OrderId == order.id)
+                                                    {
+                                                        <td><a href="/Product/@ProductOrder.Name"><img class="Current-order-img" src="@ProductOrder.ImagePath.Substring(64, ProductOrder.ImagePath.Length - 64)" alt="@ProductOrder.Name" /></a></td>
+                                                    }
+                                                }
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr />
+                                    <div class="Current-footer">
+                                        <div class="Current-footer-more">
+                                            <h5>
+                                                <a href="#" class="Custom-Tag-A-1">جزِئیات <i class="bi bi-arrow-left-circle-fill"></i> </a>
+                                            </h5>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        @{
+                            if (NumberDelivered == 0)
+                            {
+                                <h4 class="is-empty-order">
+                                    سفارشی موجود نمی باشد
+                                </h4>
+                            }
+                        }
+                    </div>
+                    <div id="Canceled" class="tabcontent">
+                        <br />
+                        @{
+                            int NumberCanceled = 0;
+                        }
+                        @foreach (var order in orders)
+                        {
+                            if (order.State == Entity.Order.Order.state.Canceled && order.IsFinally == true)
+                            {
+                                <div class="order">
+                                    <span class="number-item-order">
+                                        @{
+                                            NumberCanceled++;
+                                        }
+                                        @NumberCanceled
+                                    </span>
+                                    <div class="row">
+                                        <p class="col-lg-4 col-sm-12">
+                                            کد سفارش: @order.Code
+                                        </p>
+                                        @*<p class="col-lg-4 col-sm-12">
+                                            شماره تراکنش: @order.RefId
+                                        </p>*@
+                                        <p class="col-lg-4 col-sm-12">تاریخ ثبت سفارش: @order.Date</p>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <p class="col-lg-6 col-sm-12">
+                                            تحویل گیرنده: @order.FullName
+                                        </p>
+                                        <p class="col-lg-6 col-sm-12">
+                                            شماره موبایل: @order.PhoneNumber
+                                        </p>
+                                        <p class="col-lg-6 col-sm-12">
+                                            آدرس: @order.Address
+                                        </p>
+                                    </div>
+                                    <div class="Current-footer-price">
+                                        <h6 class="text-danger">
+                                            @order.Discount.ToString("n0") تومان
+                                        </h6>
+                                        <h6 class="text-success">
+                                            @order.Price.ToString("n0") تومان
+                                        </h6>
+                                    </div>
+                                    <hr />
+                                    <div class="Current-order-img-box">
+                                        <table class="Current-order-img-table">
+                                            <tr>
+                                                @foreach (var ProductOrder in productOrders)
+                                                {
+                                                    if (ProductOrder.OrderId == order.id)
+                                                    {
+                                                        <td><a href="/Product/@ProductOrder.Name"><img class="Current-order-img" src="@ProductOrder.ImagePath.Substring(64, ProductOrder.ImagePath.Length - 64)" alt="@ProductOrder.Name" /></a></td>
+                                                    }
+                                                }
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr />
+                                    <div class="Current-footer">
+                                        <div class="Current-footer-more">
+                                            <h5>
+                                                <a href="#" class="Custom-Tag-A-1">جزِئیات <i class="bi bi-arrow-left-circle-fill"></i> </a>
+                                            </h5>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        @{
+                            if (NumberCanceled == 0)
+                            {
+                                <h4 class="is-empty-order">
+                                    سفارشی موجود نمی باشد
+                                </h4>
+                            }
+                        }
+                    </div>
+                    <div id="NotFinally" class="tabcontent">
+                        <div class="Current-body">
+                            @{
+                                int NumberNotFinally = 0;
+                            }
+                            @foreach (var order in orders)
+                            {
+                                if (order.IsFinally != true)
+                                {
+                                    <div class="order">
+                                        <span class="number-item-order">
+                                            @{
+                                                NumberNotFinally++;
+                                            }
+                                            @NumberNotFinally
+                                        </span>
+                                        <div class="row">
+                                            <p class="col-lg-5 col-sm-12">
+                                                کد سفارش: @order.Code
+                                            </p>
+                                            <p class="col-lg-5 col-sm-12">تاریخ ثبت سفارش: @order.Date</p>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <p class="col-lg-6 col-sm-12">
+                                                تحویل گیرنده: @order.FullName
+                                            </p>
+                                            <p class="col-lg-6 col-sm-12">
+                                                شماره موبایل: @order.PhoneNumber
+                                            </p>
+                                            <p class="col-lg-6 col-sm-12">
+                                                آدرس: @order.Address
+                                            </p>
+                                        </div>
+                                        <div class="Current-footer-price">
+                                            <h6 class="text-danger">
+                                                @order.Discount.ToString("n0") تومان
+                                            </h6>
+                                            <h6 class="text-success">
+                                                @order.Price.ToString("n0") تومان
+                                            </h6>
+                                        </div>
+                                        <hr />
+                                        <div class="Current-order-img-box">
+                                            <table class="Current-order-img-table">
+                                                <tr>
+                                                    @foreach (var ProductOrder in productOrders)
+                                                    {
+                                                        if (ProductOrder.OrderId == order.id)
+                                                        {
+                                                            <td><a href="/Product/@ProductOrder.Name"><img class="Current-order-img" src="@ProductOrder.ImagePath" alt="@ProductOrder.Name" /></a></td>
+                                                        }
+                                                    }
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <hr />
+                                        <div class="Current-footer">
+                                            <div class="Current-footer-more">
+                                                <h5>
+                                                    <a href="#" class="Custom-Tag-A-1">جزِئیات <i class="bi bi-arrow-left-circle-fill"></i> </a>
+                                                </h5>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            @{
+                                if (NumberNotFinally == 0)
+                                {
+                                    <h4 class="is-empty-order">
+                                        سفارشی موجود نمی باشد
+                                    </h4>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- left side-->
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/User/Account/Order.js"></script>
+}

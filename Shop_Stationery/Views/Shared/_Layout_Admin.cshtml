@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]-stockssoheilAdmin</title>
+    <link rel="shortcut icon" type="image/ico" href="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg">
+    @*bootstrap*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-hidden.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @*custom elements*@
+    <link href="~/css/Admin/Custom-Elements/Custom-Tag-A/Custom-Tag-A.css" rel="stylesheet" />
+    <link href="~/css/Admin/Custom-Elements/Custom-Input/Custom-Input.css" rel="stylesheet" />
+    <link href="~/css/Admin/Custom-Elements/Custom-Buttons/Custom-Buttons.css" rel="stylesheet" />
+    @*style*@
+    <link href="~/css/Admin/Layout-Admin/Layout-Admin.css" rel="stylesheet" />
+    @RenderSection("Style", required: false)
+    @*for tag <i>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
+</head>
+<body dir="rtl">
+    <header class="d-print-none">
+        <div class="navbar-head">
+            <div class="container">
+                <span class="open-sidebar" onclick="OpenSidebar()">
+                    <i class="bi bi-list"></i>
+                </span>
+                <span class="username-navbar">
+                    @User.Identity.Name
+                    <i class="bi bi-person"></i>
+                </span>
+            </div>
+        </div>
+        <div class="sidebar">
+            <span class="close-sidebar" onclick="CloseSidebar()">
+                <i class="bi bi-x"></i>
+            </span>
+            <div>
+                <ul class="ul-sidebar">
+                    <li><a href="/ProductManagement" class="Custom-Tag-A-1">مدیریت کالا ها</a></li>
+                    <li><a href="/CategoryManagement" class="Custom-Tag-A-1">مدیریت دسته ها</a></li>
+                    <!--<li><a href="/ShopManagement" class="Custom-Tag-A-1">مدیریت فروشگاه ها</a></li>-->
+                    <li><a href="/PagesManagement" class="Custom-Tag-A-1">مدیریت بنر ها</a></li>
+                    <li><a href="/TrackingCodeManagement" class="Custom-Tag-A-1">کدهای پیگیری</a></li>
+                    <li>
+                        <a href="#" class="Custom-Tag-A-1" onclick="OpenUl1()">مدیریت کاربرها</a>
+                        <span class="arrow-down" onclick="OpenUl1()">
+                            <i class="fa fa-arrow-down"></i>
+                        </span>
+                        <div class="sidebar-Subset-li sidebar-Subset-li-1">
+                            <ul>
+                                <li><a href="/UserManagement" class="Custom-Tag-A-1">کابر ها</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="Custom-Tag-A-1" onclick="OpenUl2()">سفارشات</a>
+                        <span class="arrow-down" onclick="OpenUl2()">
+                            <i class="fa fa-arrow-down"></i>
+                        </span>
+                        <div class="sidebar-Subset-li sidebar-Subset-li-2">
+                            <ul>
+                                <li><a href="/OrderManagement/Processing" class="Custom-Tag-A-1">درحال پردازش</a></li>
+                                <li><a href="/OrderManagement/Delivered" class="Custom-Tag-A-1">تکمیل شده</a></li>
+                                <li><a href="/OrderManagement/Canceled" class="Custom-Tag-A-1">لغو شده</a></li>
+                                <li><a href="/OrderManagement/IsFinally" class="Custom-Tag-A-1">پرداخت نشده</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    @*<li><a href="#" class="Custom-Tag-A-1">دسترسی به نظرات</a></li>*@
+                    @*<li>
+                        <a href="#" class="Custom-Tag-A-1" onclick="OpenUl3()">تیکت ها</a>
+                        <span class="arrow-down" onclick="OpenUl3()">
+                            <i class="fa fa-arrow-down"></i>
+                        </span>
+                        <div class="sidebar-Subset-li sidebar-Subset-li-3">
+                            <ul>
+                                <li><a href="/ProductManagement" class="Custom-Tag-A-1">جاری</a></li>
+                                <li><a href="#" class="Custom-Tag-A-1">جواب کاربر</a></li>
+                                <li><a href="#" class="Custom-Tag-A-1">جواب مدیر</a></li>
+                                <li><a href="#" class="Custom-Tag-A-1">بسته شده</a></li>
+                            </ul>
+                        </div>
+                    </li>*@
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="">
+    </footer>
+    <script>
+        function CloseSidebar() {
+            $(".sidebar").toggle(500);
+        }
+        function OpenSidebar() {
+            $(".sidebar").toggle(500);
+        }
+        function OpenUl1() {
+            $(".sidebar-Subset-li-1").toggle(500);
+        }
+        function OpenUl2() {
+            $(".sidebar-Subset-li-2").toggle(500);
+        }
+        function OpenUl3() {
+            $(".sidebar-Subset-li-3").toggle(500);
+        }
+    </script>
+    <script src="~/js/Admin/Layout-Admin/Layout-Admin.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Admin/PageManagement/PageManagement.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

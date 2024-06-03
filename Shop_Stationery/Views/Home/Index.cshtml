@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "لباس استوک";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@section Style{
+    <meta name="description" content="فروش انواع لباس های استوک با بهترین کیفت و کمترین قیمت"/>
+    <meta name="keywords" content="stock , استوک , سهیل , کاپشن , تیشرت"/>
+    <link href="~/css/User/Home/Home.css" rel="stylesheet" />
+    <link href="~/css/User/Custom-Elements/Custom-cards/Custom-Card.css" rel="stylesheet" />
+}
+@using Entity;
+@{
+    List<Product> BestOffer1 = new List<Product>();
+    BestOffer1 = ViewBag.BestOffer1;
+    List<Product> BestOffer2 = new List<Product>();
+    BestOffer2 = ViewBag.BestOffer2;
+    List<Category> categories = new List<Category>();
+    categories = ViewBag.Category;
+}
+
+
+<div class="Special-Offer container">
+    <h3 class="title-offer">
+        کالاهای پیشنهادی
+    </h3>
+    <div class="products-offer">
+        <div class="row">
+            @foreach (var item in BestOffer1)
+            {
+                <div class="offer-item col-lg-3 col-md-4 col-sm-6 col-6">
+                            <div class="offer-item-discription">
+                                <p><span style="font-size:8px">&gt;</span>  اندازه ها: @item.Specifications </p>
+
+                                <div type="button" class=" offer-add-basket" onclick="AddBasket(@item.id);">افزودن به سبد <i style="color:white" class="bi bi-basket"></i></div>                                                                                                                
+                            </div>
+                    <a href="/Product/@item.Name">
+                        <div class="Offer-item-img">
+                            <img class="b-lazy"
+                                 src="~/assets_templates/template1/images/thumb.png"
+                                 data-src ="@item.ImagePath"
+                                 alt="@item.Name" />
+                        </div>
+                        <div>
+
+                            <h6 style="text-align:center">@item.Name</h6>
+                            @if (item.Discount != 0)
+                            {
+                                <div class="slider-Offer-item-discount">
+                                    <p>
+                                        @{
+                                            long price = (item.Price / 100) * (100 - item.Discount);
+                                        }
+                                        @price.ToString("n0")
+                                        <span class="toman-price" style=" font-size: 12px;">
+                                            تومان
+                                        </span>
+                                    </p>
+                                    <span class=" offer-item-discount">
+                                        @item.Discount%
+                                    </span>
+                                </div>
+                                <div class="slider-Offer-item-price">
+                                    <p class="price-del">
+                                        <del>
+                                            @item.Price
+                                        </del>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="slider-Offer-item-discount">
+                                    <p>
+                                        @item.Price.ToString("n0")
+                                        <span class="toman-price" style=" font-size: 12px;">
+                                            تومان
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="slider-Offer-item-price">
+                                    <p class="price-del">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<br />
+<br />
+<div class="slider-Offer-Box">
+    <div class="container">
+        <button class="slider-Offer-btn-prev Custom-Button-1">
+            <span class="fa fa-arrow-left"></span>
+        </button>
+        <button class="slider-Offer-btn-next Custom-Button-1">
+            <span class="fa fa-arrow-right"></span>
+        </button>
+        <ul class="slider-Offer-Box-ul">
+            <li>
+                دسته ها
+                <br />
+                <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" />
+            </li>
+            @foreach (var item in categories)
+            {
+                <li class="slider-Offer-item">
+                    <a href="/SearchProduct/Search?Categories=@item.Name">
+                        <div class="slider-Offer-item-img">
+                            <img class="b-lazy"
+                                 src="~/assets_templates/template1/images/thumb.png"
+                                 data-src="@item.ImagePath"
+                                 alt="@item.Name" />
+                        </div>
+                        <div>
+                            <br />
+                            <div class="slider-Offer-item-discount" style="text-align:center">
+                                <p>
+                                    @item.Name
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<br />
+<br />
+
+<div class="slider-Offer-Box">
+    <div class="container">
+        <button class="slider-Offer-btn-prev Custom-Button-1">
+            <span class="fa fa-arrow-left"></span>
+        </button>
+        <button class="slider-Offer-btn-next Custom-Button-1">
+            <span class="fa fa-arrow-right"></span>
+        </button>
+        <ul class="slider-Offer-Box-ul">
+            <li>
+                کالا های پیشنهادی
+                <br />
+                <img src="~/assets_templates/template1/images/PicsArt_11-09-11.54.30.jpg" />
+            </li>
+            @foreach (var item in BestOffer2)
+            {
+                <li class="slider-Offer-item">
+                    <a href="/Product/@item.Name">
+                        <div class="slider-Offer-item-img">
+                            <img class="b-lazy"
+                                 src="~/assets_templates/template1/images/thumb.png"
+                                 data-src="@item.ImagePath"
+                                 alt="@item.Name" />
+                        </div>
+                        <div>
+                            @if (item.Discount != 0)
+                            {
+                                <div class="slider-Offer-item-discount">
+                                    <p>
+                                        @{
+                                            long p = (item.Price / 100) * item.Discount;
+                                            long price = item.Price - p;
+                                        }
+                                        @price.ToString("n0")
+                                        <span class="toman-price">
+                                            تومان
+                                        </span>
+                                    </p>
+                                    <span class="slider-Offer-item-icon">
+                                        @item.Discount%
+                                    </span>
+                                </div>
+                                <div class="slider-Offer-item-price">
+                                    <p class="price-del">
+                                        <del>
+                                            @item.Price
+                                        </del>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="slider-Offer-item-discount">
+                                    <p>
+                                        @item.Price.ToString("n0")
+                                        <span class="toman-price">
+                                            تومان
+                                        </span>
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/js/User/Home/Home.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+}
+
+@*background-image: linear-gradient(127deg, #3c005d 0%, #5d004f 91%)*@

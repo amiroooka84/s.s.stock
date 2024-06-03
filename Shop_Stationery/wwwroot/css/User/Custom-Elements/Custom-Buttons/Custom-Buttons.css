@@ -1,0 +1,59 @@
+﻿
+/*btn1*/
+.Custom-Button-1 {
+    background-color: #f9a61a;
+    color: white;
+    font-size: 18px;
+    transition: background-color .1s;
+    border-radius: 3px;
+    border: none
+}
+.Custom-Button-1:hover {
+    background-color: #fec360;
+    color: white;
+}
+    .Custom-Button-1:focus {
+        background-color: #fec360;
+        color: white;
+    }
+/*btn1*/
+/*btn2*/
+.Custom-Button-2 {
+    background-color: #f9a61a;
+    color: white;
+    font-size: 18px;
+    transition: background-color .1s;
+    border-radius: 3px;
+    border: none
+}
+
+    .Custom-Button-2:hover {
+        background-color: #fec360;
+        color: white;
+    }
+
+    .Custom-Button-2:focus {
+        background-color: #fec360;
+        color: white;
+    }
+/*btn2*/
+/*btn3*/
+.Custom-Button-3 {
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid #f9a61a;
+    color: #f9a61a;
+    transition: 0.1s
+}
+    .Custom-Button-3:hover {
+        background-color: #f9a61a;
+        color: white;
+    }
+
+    .Custom-Button-3:focus {
+        background-color: #fec360;
+        color: white;
+    }
+/*btn3*/

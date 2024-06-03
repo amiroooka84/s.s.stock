@@ -1,0 +1,290 @@
+﻿@{
+    ViewData["Title"] = "جستجو";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+@model List<Entity.Product>
+@section Style {
+    <link href="~/css/User/Custom-Elements/Custom-cards/Custom-Card.css" rel="stylesheet" />
+    <link href="~/css/User/SearchProduct/SearchProduct.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet" />
+
+}
+@using Entity;
+@{
+    Shop_Stationery.Models.ViewModelUser.ViewModelSearch.ViewModelSearchByFilter viewModelSearch = new Shop_Stationery.Models.ViewModelUser.ViewModelSearch.ViewModelSearchByFilter();
+    viewModelSearch = ViewBag.ViewModelSearch;
+    List<Category> categories = new List<Category>();
+    categories = ViewBag.categories;
+    int NumPage = ViewBag.NumPage;
+    void ReadSubsetCategory(long id)
+    {
+        foreach (var item in categories)
+        {
+            if (item.Categoryid == id)
+            {
+                <li>
+                    @{
+                        bool isChecked = false;
+                    }
+                    @if (viewModelSearch.Categories != null)
+                    {
+                        @foreach (var ViewModel in viewModelSearch.Categories)
+                        {
+                            if (item.Name == ViewModel)
+                            {
+                                isChecked = true;
+                            }
+                        }
+                    }
+                    @if (isChecked)
+                    {
+                        <input type="checkbox" checked name="Categories" value="@item.Name" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="Categories" value="@item.Name" />
+                    }
+                    <label>@item.Name</label>
+                    <ul class="@item.id">
+                        <li>
+                            @{
+                                ReadSubsetCategory(item.id);
+                            }
+                        </li>
+                    </ul>
+                </li>
+            }
+        }
+    }
+    void GetCategory()
+    {
+        <ul class="ul-select-category">
+            @foreach (var item in categories)
+            {
+                if (item.Categoryid == 0)
+                {
+                    <li>
+                        @{
+                            bool isChecked = false;
+                        }
+                        @if (viewModelSearch.Categories != null)
+                        {
+                            @foreach (var ViewModel in viewModelSearch.Categories)
+                            {
+                                if (item.Name == ViewModel)
+                                {
+                                    isChecked = true;
+                                }
+                            }
+                        }
+                        @if (isChecked)
+                        {
+                            <input type="checkbox" checked name="Categories" value="@item.Name" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="Categories" value="@item.Name" />
+                        }
+                        <label>@item.Name</label>
+                        <ul class="@item.id">
+                            @{
+                                ReadSubsetCategory(item.id);
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    }
+}
+<div class="container">
+    <form class="form-search-filter" asp-action="Search" asp-controller="SearchProduct" method="get">
+        <div class="row">
+            <div class="search-filter col-12">
+                <div class="box-search-filter row">
+                    <div class="row box-input-search-filter col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12" >
+                        <label>جستجو</label>
+                        <input class="col-10 Custom-Input-2 input-search-filter" type="search" name="Search" value="@viewModelSearch.Search" />
+                        <div class="col-2 box-btn-search-filter">
+                            <button class="btn-submit-search-filter Custom-Button-2" type="submit" name="Search" value="@viewModelSearch.Search">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                        <label>مرتب سازی</label>
+                        
+                        <select class="col-12 Custom-Input-2" name="Order">
+                            @if (viewModelSearch.Order == "Expensive")
+                            {
+                                <option selected value="Expensive">گرانترین</option>
+                            }
+                            else
+                            {
+                                <option value="Expensive">گرانترین</option>
+                            }
+                            @if (viewModelSearch.Order == "Cheap")
+                            {
+                                <option selected value="Cheap">ارزانترین</option>
+                            }
+                            else
+                            {
+                                <option value="Cheap">ارزانترین</option>
+                            }
+                            @if (viewModelSearch.Order == "Discount")
+                            {
+                                <option selected value="Discount">تخفیف</option>
+                            }
+                            else
+                            {
+                                <option value="Discount">تخفیف</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-select-category col-12 col-xxl-3 col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="select-category">
+                    <div class="header-select-category">
+                        <h6 id="idd">
+                            فیلتر براساس دسته بندی
+                            <b>
+                                <span onclick="OpenSelectCategory()" class="bi bi-chevron-down open-select-category">
+
+                                </span>
+                            </b>
+
+                        </h6>
+                        <hr class="body-select-category" />
+                    </div>
+                    <div class="body-select-category">
+                        @{
+                            GetCategory();
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="result-search col-12 col-xxl-9 col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                <div class="row">
+                    @if (Model.Count != 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <div class="Box-card-product col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
+                                <div class="card-product">
+
+                                    <a href="/Product/@item.Name" target="_blank">
+                                        <div class="card-product-img">
+                                            <div class="dark-cover">
+                                                <div>مشاهده</div>
+                                            </div>
+                                            @*<img src="@item.ImagePath" alt="@item.Name" />*@
+                                            <img class="b-lazy"
+                                                 src="~/assets_templates/template1/images/thumb.png"
+                                                 data-src="@item.ImagePath"
+                                                 alt="@item.Name" />
+                                            @if (item.Discount != 0)
+                                            {
+                                                <div class="discount-top-card">
+                                                    <p>@item.Discount%</p>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="card-product-body">
+                                            <h6 class="name-card">
+                                                @item.Name
+                                            </h6>
+                                            <div class="box-price">
+                                                @if (item.Number == 0)
+                                                {
+                                                    <h6 class="price-card">
+                                                        ناموجود
+                                                    </h6>
+                                                }
+                                                else if (item.Discount != 0)
+                                                {
+
+                                                    <h6 class="price-card">
+                                                        @{
+                                                            long p = (item.Price / 100) * item.Discount;
+                                                            long price = item.Price - p;
+                                                        }
+                                                        @price.ToString("n0")
+                                                        <span class="toman-price">
+                                                            تومان
+                                                        </span>
+                                                        <br class="hidden-lg hidden-md hidden-sm" />
+
+                                                        <span class="discount-card">
+                                                            <del>
+                                                                @item.Price.ToString("n0")
+                                                            </del>
+                                                        </span>
+                                                    </h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6 class="price-card">
+                                                        @item.Price.ToString("n0")
+                                                        <span class="toman-price">
+                                                            تومان
+                                                        </span>
+                                                    </h6>
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                        <div class="card-product-footer" >
+                                            <h6 class="size-Product ">
+                                                <span style="font-size:8px">&gt;</span>
+                                                اندازه ها:@item.Specifications
+                                            </h6>
+                                            <button type="button" class="search-addbasket"  onclick="AddBasket(@item.id);">افزودن به سبد <i style="color:white" class="bi bi-basket"></i></button>
+                                        </div>
+                                </div>
+                            </div>
+                        }
+                    }
+            else
+            {
+                <h3 class="not-product">
+                    محصولی یافت نشد
+                </h3>
+            }
+                </div>
+                <div class="box-pagination">
+                    <ul class="pagination ul-pagination">
+                        @for (int i = 1; i <= NumPage; i++)
+                        {
+                            if (viewModelSearch.Page == i)
+                            {
+                                <li><a onclick="pagination(@i , @viewModelSearch.Page)" class="active">@i</a></li>
+                            }
+                            else
+                            {
+                                <li><a onclick="pagination(@i , @viewModelSearch.Page)" class="">@i</a></li>
+                            }
+                        }
+                        @if (Model.Count != 0)
+                        {
+                            <li><a onclick="paginationNext(@viewModelSearch.Page)" class=""><i class="bi bi-chevron-left"></i></a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/User/SearchProduct/SearchProduct.js"></script>
+}

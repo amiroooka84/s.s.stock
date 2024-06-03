@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "مقایسه";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+
+@section Style{
+    <link href="~/css/User/Compare/SelectProduct.css" rel="stylesheet" />
+
+}
+
+<div class="container">
+    <h3 class="title-compare">مقایسه محصولات</h3>
+    <div class="scroll-table-compare">
+        <table class="col-12 table-compare">
+            <tr class="row row-table-compare">
+                <th class="col-2">تصویر</th>
+                @foreach (var item in ViewBag.Products)
+                {
+                    <td class="col-5">
+                        <a href="/Ptoduct/@item.Name">
+                            <img src="@item.ImagePath" alt="@item.Name" width="70%">
+                            <img class="b-lazy d-inline "
+                                 src="\assets_templates\template1\images\thumb.png"
+                                 data-src="@item.ImagePath"
+                                 alt="@item.Name"
+                                 width="70%" />
+                        </a> 
+                    </td>
+                }
+            </tr>
+            <tr class="row row-table-compare">
+                <th class="col-2">قیمت</th>
+                @foreach (var item in ViewBag.Products)
+                {
+                    <td class="col-5">
+                        @if (item.Discount != 0)
+                        {
+
+                            <span class="dsicount-icon">
+                                @item.Discount%
+                            </span>
+
+                            long p = (item.Price / 100) * item.Discount;
+                            long price = item.Price - p;
+
+                            @price.ToString("n0")
+                            <span class="toman-price">
+                                تومان
+                            </span>
+
+                            <br />
+
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <del>
+                                @item.Price.ToString("n0")
+                            </del>
+
+
+                        }
+                        else
+                        {
+
+                            @item.Price.ToString("n0")
+                            <span class="toman-price">
+                                تومان
+                            </span>
+
+                        }
+                    </td>
+                }
+            </tr>
+            <tr class="row row-table-compare">
+                <th class="col-2">نام کالا</th>
+                @foreach (var item in ViewBag.Products)
+                {
+                    <td class="col-5">@item.Name @item.Code</td>
+                }
+            </tr>
+            <tr class="row row-table-compare">
+                <th class="col-2">سایز بندی</th>
+                @foreach (var item in ViewBag.Products)
+                {
+                    <td class="col-5">@item.Specifications</td>
+                }
+            </tr>
+            <tr class="row row-table-compare">
+                <th class="col-2">توضیحات</th>
+                @foreach (var item in ViewBag.Products)
+                {
+            <td class="col-5">@Html.Raw(item.Discription)</td>
+                }
+            </tr>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,34 @@
+﻿
+<link href="~/css/User/Account/AccountPartial/AccountPartial.css" rel="stylesheet" />
+<link href="~/css/User/Custom-Elements/Custom-Tag-A/Custom-Tag-A.css" rel="stylesheet" />
+
+<section class="section-dashboard col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <div class="section-Account">
+        <div class="header-section">
+            <div class="img-user" id="c">
+                <div></div>
+                <h6>@User.Identity.Name</h6>
+            </div>
+        </div>
+        <hr />
+        <div class="body-section">
+            <ul>
+                <li><a href="/Account/EditProfile/#c" class="Custom-Tag-A-1">ویرایش حساب <i class="bi bi-person-circle"></i></a></li>
+                <li><a href="/Account/ChangePassword/#c" class="Custom-Tag-A-1">تغییر رمز عبور <i class="fa fa-lock"></i></a></li>
+                <li><a href="/Account/Basket/#c" class="Custom-Tag-A-1">سبد خرید <i class="bi bi-basket2-fill"></i></a></li>
+                <li><a href="/Account/Order/#c" class="Custom-Tag-A-1">سفارش های من <i class="bi bi-receipt-cutoff"></i></a></li>
+                <li><a href="/Account/Interests" class="Custom-Tag-A-1">علاقه مندی ها <i class="fa fa-heart-o"></i></a></li>
+                @*<li><a href="/Account/Tickets/#c" class="Custom-Tag-A-1">تیکت ها <i class="bi bi-chat-right-text-fill"></i></a></li>*@
+            </ul>
+            <div class="box-instagram-section">
+                <a class="Custom-Tag-A-1" href="https://instagram.com/stock.s.s?igshid=OGQ2MjdiOTE">
+                    <i class="fa fa-instagram"></i>
+                    <br />
+                    <span>
+                        ما را در اینستاگرام دنبال کنید
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,113 @@
+﻿.post-cost {
+    float:left;
+}
+.post-cost-box > h4 {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 2px solid #012453;
+    margin: 10px 70px 25px;
+}
+.post-cost-box > div {
+    margin-bottom: 5px;
+    border: 1px solid #f9f9f9;
+    padding: 12px;
+    border-radius: 20px;
+    background-color: white;
+}
+.right-content {
+    border: 1px solid #f4f4f4;
+    border-radius: 15px;
+    box-shadow: 5px 10px 10px #dedede;
+    font-size: 14px;
+    margin-bottom: 50px;
+    padding: 10px;
+}
+.text-over-500{
+    font-size:14px;
+}
+.button-Pay{
+    width:100%;
+    padding:7px 0
+}
+.addresses-shipping{
+    border:1px solid #c2c2c2;
+    border-radius:5px;
+    padding:10px;
+    margin:5px 0
+}
+.alert-post-cost{
+    margin-top:5px;
+}
+
+.box-btn-address {
+    text-align: left
+}
+
+.left-content {
+    background-color: #f2f2f2;
+    border: 1px solid #f4f4f4;
+    border-radius: 15px 15px 5px 5px;
+    box-shadow: 5px 10px 10px #dedede;
+    font-size: 14px;
+    margin-bottom: 50px;
+    padding: 20px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px
+}
+
+.left-content-body {
+    padding: 20px 20px;
+}
+
+@media (max-width:991px) {
+}
+
+.left-content-header {
+    height: 70px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border-bottom: 2px solid #012453;
+}
+
+    .left-content-header > h2 {
+        text-align: center;
+        padding-top: 12px;
+        color: #606060;
+    }
+
+.btn-submit-edit {
+    position: relative;
+    margin-right: auto;
+    margin-left: 13px;
+    height: 40px;
+    margin-top: 20px;
+    width: 150px;
+    bottom: 0;
+}
+
+.Current-order-img-box {
+    overflow: auto;
+}
+
+    .Current-order-img-box::-webkit-scrollbar {
+        background-color: #ededed;
+        border-radius: 10px;
+        width: 20px;
+        cursor: help;
+        height: 6px;
+    }
+
+    .Current-order-img-box::-webkit-scrollbar-thumb {
+        background-color: #9f9f9f;
+        border-radius: 10px;
+        border: 1px solid #ededed;
+    }
+.Current-order-img {
+    border-left: 1px solid #e1e1e1;
+    width: 150px;
+    padding: 10px;
+}
+.form-select-address > div{
+    margin-top:10px
+}

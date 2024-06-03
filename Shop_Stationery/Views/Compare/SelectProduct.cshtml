@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "مقایسه";
+    Layout = "~/Views/Shared/_Layout_HomeUser.cshtml";
+}
+
+@section Style{
+    <link href="~/css/User/Compare/SelectProduct.css" rel="stylesheet" />
+}
+
+<h4 class="title-compare">محصولات برای مقایسه</h4>
+
+<div class="container">
+    <div class="box-search-product">
+        <div class="search-product">
+            <form action="/Compare/SelectProduct" method="get">
+                <input class="form-control" type="search" name="Search" value="" />
+                <input class="form-control" type="text" name="Product1" value="@ViewBag.Product1" hidden/>
+                <button class="Custom-Button-1">جستجو <i class="fa fa-search"></i> </button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+
+
+            <div class="products-offer">
+                <div class="row">
+                    @foreach (Entity.Product item in ViewBag.Products)
+                    {
+                        <div class="offer-item col-lg-3 col-md-4 col-sm-6 col-6">
+                            <a href="/Compare/SelectProduct?Product1=@ViewBag.Product1&Product2=@item.Name">
+                                <div class="Offer-item-img">
+                                    <img class="b-lazy"
+                                         src="~/assets_templates/template1/images/thumb.png"
+                                         data-src="@item.ImagePath"
+                                         alt="@item.Name" />
+                                </div>
+                                <div>
+                                    @if (item.Discount != 0)
+                                    {
+                                        <div class="slider-Offer-item-discount">
+                                            <p>
+                                                @{
+                                                    long price = (item.Price / 100) * (100 - item.Discount);
+                                                }
+                                                @price.ToString("n0")
+                                                <span class="toman-price" style=" font-size: 12px;">
+                                                    تومان
+                                                </span>
+                                            </p>
+                                            <span class=" offer-item-discount">
+                                                @item.Discount%
+                                            </span>
+                                        </div>
+                                        <div class="slider-Offer-item-price">
+                                            <p class="price-del">
+                                                <del>
+                                                    @item.Price
+                                                </del>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="slider-Offer-item-discount">
+                                            <p>
+                                                @item.Price.ToString("n0")
+                                                <span class="toman-price" style=" font-size: 12px;">
+                                                    تومان
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="slider-Offer-item-price">
+                                            <p class="price-del">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </p>
+                                        </div>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+    </div>
+    <div></div>
+</div>
